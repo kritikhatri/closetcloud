@@ -108,6 +108,24 @@ export function lookCreditUrl(look) {
 
 export const UNSPLASH_URL = `https://unsplash.com/?${UTM}`
 
+const lookById = Object.fromEntries(LOOKS.map((look) => [look.id, look]))
+
+/* getLooks(['ivory-coat', 'pink-corset']) → the matching look objects. */
+export function getLooks(ids) {
+  return ids.map((id) => lookById[id]).filter(Boolean)
+}
+
+/*
+  A different set of looks each day, the same for everyone that day.
+  "Days since 1970" changes once per day, so it works as a simple seed.
+*/
+export function dailyLooks(date, count, offset = 0) {
+  const all = mixedLooks()
+  const day = Math.floor(date.getTime() / 86_400_000)
+  const start = (day * count + offset) % all.length
+  return Array.from({ length: count }, (_, i) => all[(start + i) % all.length])
+}
+
 /* Mixes the aesthetics together so the board doesn't show all the pink
    looks, then all the black ones. Deterministic (same order every load). */
 export function mixedLooks(looks = LOOKS) {

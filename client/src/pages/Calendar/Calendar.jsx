@@ -11,8 +11,9 @@ export default function Calendar() {
         eyebrow="Plan ahead"
         title="Calendar"
         description="Assign saved outfits to dates and see what’s coming up this week."
+        looks={['white-crosswalk', 'teal-coat', 'black-cami']}
       />
-      <EmptyState icon="calendar" title="Nothing planned yet">
+      <EmptyState looks={['trench-scarf', 'blush-backless', 'red-swirl']} title="Nothing planned yet">
         Outfits you schedule will appear here as a month view and an agenda of
         upcoming looks.
       </EmptyState>

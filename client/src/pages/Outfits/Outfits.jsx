@@ -11,8 +11,9 @@ export default function Outfits() {
         eyebrow="Your looks"
         title="Outfits"
         description="Combine pieces from your wardrobe into outfits, then save your favourites."
+        looks={['ivory-coat', 'tiered-pink', 'leather-mini']}
       />
-      <EmptyState icon="outfit" title="No outfits yet">
+      <EmptyState looks={['cream-suit', 'denim-cargo', 'pink-corset']} title="No outfits yet">
         Once your wardrobe has a few pieces, you’ll be able to pair them into
         outfits here.
       </EmptyState>

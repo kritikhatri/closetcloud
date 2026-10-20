@@ -7,6 +7,9 @@ import ClothingGrid, {
 } from '../../components/ClothingGrid/ClothingGrid.jsx'
 import EmptyState from '../../components/EmptyState/EmptyState.jsx'
 import Icon from '../../components/Icon/Icon.jsx'
+import LookCard from '../../components/LookCard/LookCard.jsx'
+import PhotoStack from '../../components/PhotoStack/PhotoStack.jsx'
+import { dailyLooks, getLooks, lookImageUrl } from '../../data/inspiration.js'
 import useAsyncData from '../../hooks/useAsyncData.js'
 import usePageTitle from '../../hooks/usePageTitle.js'
 import styles from './Dashboard.module.css'
@@ -16,29 +19,32 @@ const quickActions = [
     to: '/wardrobe/new',
     icon: 'hanger',
     title: 'Add a piece',
-    text: 'Photograph something you own and give it a home.',
+    text: 'Photograph something you own',
+    look: 'tee-boots-flatlay',
   },
   {
     to: '/outfits',
     icon: 'outfit',
     title: 'Build an outfit',
-    text: 'Pair pieces from your closet into a look worth saving.',
+    text: 'Pair pieces into a look',
+    look: 'ivory-coat',
   },
   {
     to: '/calendar',
     icon: 'calendar',
     title: 'Plan a look',
-    text: 'Decide tomorrow’s outfit tonight, and skip the morning scramble.',
+    text: 'Decide tomorrow’s outfit tonight',
+    look: 'white-crosswalk',
   },
 ]
+
+const RECENT_COUNT = 4
 
 function getGreeting(hour) {
   if (hour < 12) return 'Good morning'
   if (hour < 18) return 'Good afternoon'
   return 'Good evening'
 }
-
-const RECENT_COUNT = 4
 
 export default function Dashboard() {
   usePageTitle('Home')
@@ -55,38 +61,84 @@ export default function Dashboard() {
     day: 'numeric',
     month: 'long',
   })
+  const heroLooks = dailyLooks(now, 3)
+  const todaysLooks = dailyLooks(now, 4, 3)
 
   return (
     <>
+      {/* ---------- Greeting banner ---------- */}
       <header className={styles.welcome}>
-        <p className="eyebrow">{today}</p>
-        <h1 className={styles.greeting}>
-          {getGreeting(now.getHours())}.
-          <br />
-          <em>What are we wearing?</em>
-        </h1>
+        <div className={styles.welcomeText}>
+          <p className="eyebrow">{today}</p>
+          <h1 className={styles.greeting}>
+            {getGreeting(now.getHours())}.
+            <br />
+            <em>What are we wearing?</em>
+          </h1>
+          {items && (
+            <p className={styles.closetCount}>
+              <Icon name="hanger" size={18} />
+              {items.length === 0
+                ? 'Your closet is ready for its first piece'
+                : `${items.length} ${items.length === 1 ? 'piece' : 'pieces'} in your closet`}
+            </p>
+          )}
+        </div>
+        <div className={styles.welcomePhotos}>
+          <PhotoStack looks={heroLooks} />
+        </div>
       </header>
 
+      {/* ---------- Quick actions ---------- */}
       <section aria-labelledby="quick-actions" className={styles.section}>
         <h2 id="quick-actions" className="visually-hidden">
           Quick actions
         </h2>
         <ul className={styles.actions}>
-          {quickActions.map((action) => (
-            <li key={action.to}>
-              <Link to={action.to} className={styles.actionCard}>
-                <span className={styles.actionIcon}>
-                  <Icon name={action.icon} />
-                </span>
-                <h3 className={styles.actionTitle}>{action.title}</h3>
-                <p className={styles.actionText}>{action.text}</p>
-                <Icon name="arrowRight" size={18} className={styles.arrow} />
-              </Link>
+          {quickActions.map((action) => {
+            const [look] = getLooks([action.look])
+            return (
+              <li key={action.to}>
+                <Link to={action.to} className={styles.actionCard}>
+                  <img src={lookImageUrl(look, 500)} alt="" className={styles.actionImage} />
+                  <span className={styles.actionBody}>
+                    <span className={styles.actionIcon}>
+                      <Icon name={action.icon} size={20} />
+                    </span>
+                    <span className={styles.actionTitle}>{action.title}</span>
+                    <span className={styles.actionText}>{action.text}</span>
+                  </span>
+                  <Icon name="arrowRight" size={20} className={styles.arrow} />
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+
+      {/* ---------- Today's inspiration ---------- */}
+      <section aria-labelledby="todays-inspiration" className={styles.section}>
+        <div className={styles.sectionHead}>
+          <div>
+            <p className="eyebrow">Changes daily</p>
+            <h2 id="todays-inspiration" className={styles.sectionTitle}>
+              Today’s inspiration
+            </h2>
+          </div>
+          <Link to="/inspiration" className={styles.viewAll}>
+            See the full board
+          </Link>
+        </div>
+        <ul className={styles.inspoRow}>
+          {todaysLooks.map((look) => (
+            <li key={look.id}>
+              <LookCard look={look} />
             </li>
           ))}
         </ul>
       </section>
 
+      {/* ---------- Your closet ---------- */}
       <div className={styles.columns}>
         <section aria-labelledby="recent" className={styles.section}>
           <div className={styles.sectionHead}>
@@ -108,7 +160,7 @@ export default function Dashboard() {
           )}
           {items?.length === 0 && (
             <EmptyState
-              icon="hanger"
+              looks={['stripes-flatlay', 'cardigan-flatlay', 'beanie-flatlay']}
               title="Your closet is waiting"
               action={<ButtonLink to="/wardrobe/new">Add your first piece</ButtonLink>}
             >
@@ -121,10 +173,15 @@ export default function Dashboard() {
         </section>
 
         <section aria-labelledby="upcoming" className={styles.section}>
-          <h2 id="upcoming" className={styles.sectionTitle}>
-            Coming up
-          </h2>
-          <EmptyState icon="calendar" title="Nothing planned yet">
+          <div className={styles.sectionHead}>
+            <h2 id="upcoming" className={styles.sectionTitle}>
+              Coming up
+            </h2>
+          </div>
+          <EmptyState
+            looks={['trench-scarf', 'blush-backless', 'teal-coat']}
+            title="Nothing planned yet"
+          >
             Outfits you schedule on the calendar will appear here.
           </EmptyState>
         </section>

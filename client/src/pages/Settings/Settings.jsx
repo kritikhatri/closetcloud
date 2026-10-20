@@ -11,6 +11,7 @@ export default function Settings() {
         eyebrow="Account"
         title="Settings"
         description="Your profile, preferences and sign-in details."
+        looks={['oat-knit', 'blossom-pink', 'all-white']}
       />
       <EmptyState icon="user" title="No account yet">
         Profile and account settings will be available once sign-in is set up.

@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router'
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink, Outlet, useLocation } from 'react-router'
+import { dailyLooks, lookImageUrl } from '../../data/inspiration.js'
 import Icon from '../../components/Icon/Icon.jsx'
 import Logo from '../../components/Logo/Logo.jsx'
 import ToastProvider from '../../components/Toast/ToastProvider.jsx'
@@ -21,6 +22,8 @@ export default function AppLayout() {
   const { pathname } = useLocation()
   const mainRef = useRef(null)
   const isFirstRender = useRef(true)
+  // Read the date once (see Dashboard for why) and pick today's look.
+  const [lookOfDay] = useState(() => dailyLooks(new Date(), 1, 7)[0])
 
   // In a single-page app the browser doesn't "load a new page", so screen
   // readers don't notice navigation. Moving focus to <main> after each
@@ -65,6 +68,14 @@ export default function AppLayout() {
               ))}
             </ul>
           </nav>
+
+          <Link to="/inspiration" className={styles.lookOfDay}>
+            <img src={lookImageUrl(lookOfDay, 400)} alt="" />
+            <span className={styles.lookOfDayText}>
+              <span className={styles.lookOfDayLabel}>Look of the day</span>
+              <span className={styles.lookOfDayTitle}>{lookOfDay.title}</span>
+            </span>
+          </Link>
 
           <NavLink to="/settings" className={linkClass(styles.sideLink)}>
             <Icon name="user" />

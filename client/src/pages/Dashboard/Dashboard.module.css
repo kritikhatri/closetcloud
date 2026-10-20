@@ -1,5 +1,32 @@
+/* ---------- Greeting banner ---------- */
+
 .welcome {
-  margin-bottom: var(--space-7);
+  display: grid;
+  align-items: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(30rem 20rem at 85% 10%, rgb(255 255 255 / 0.7) 0%, transparent 70%),
+    linear-gradient(115deg, var(--color-blush) 0%, var(--color-blush-soft) 55%, #fdf9f5 100%);
+}
+
+@media (min-width: 700px) {
+  .welcome {
+    grid-template-columns: 1fr auto;
+    padding: var(--space-7);
+  }
+}
+
+@media (max-width: 699.98px) {
+  .welcomePhotos {
+    display: none;
+  }
+}
+
+.welcomeText :global(.eyebrow) {
+  color: var(--color-rose-deep);
 }
 
 .greeting {
@@ -8,35 +35,47 @@
 }
 
 .greeting em {
-  color: var(--color-rose);
+  color: var(--color-rose-deep);
 }
+
+.closetCount {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.75);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-rose-deep);
+}
+
+/* ---------- Sections ---------- */
 
 .section {
   margin-bottom: var(--space-7);
 }
 
-.sectionTitle {
-  margin-bottom: var(--space-4);
-}
-
-.sectionHead .sectionTitle {
-  margin-bottom: 0; /* the head row already provides the spacing */
-}
-
 .sectionHead {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-between;
   gap: var(--space-3);
   margin-bottom: var(--space-4);
 }
 
+.sectionTitle {
+  margin-top: var(--space-1);
+}
+
 .viewAll {
   font-size: var(--text-sm);
+  font-weight: 500;
   white-space: nowrap;
 }
 
-/* ---------- Quick actions ---------- */
+/* ---------- Quick actions: photo cards ---------- */
 
 .actions {
   list-style: none;
@@ -48,59 +87,105 @@
 
 .actionCard {
   position: relative;
-  display: grid;
-  gap: var(--space-2);
-  height: 100%;
-  padding: var(--space-5);
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-md);
-  color: var(--color-ink);
+  display: block;
+  height: 190px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  color: #fff;
   text-decoration: none;
+  box-shadow: var(--shadow-md);
   transition:
     transform var(--duration-base) var(--ease-out),
-    box-shadow var(--duration-base) var(--ease-out),
-    border-color var(--duration-base) ease;
+    box-shadow var(--duration-base) var(--ease-out);
 }
 
 .actionCard:hover {
-  color: var(--color-ink);
+  color: #fff;
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
-  border-color: transparent;
+}
+
+.actionImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms var(--ease-out);
+}
+
+.actionCard:hover .actionImage {
+  transform: scale(1.06);
+}
+
+/* Dark fade at the bottom keeps white text readable on any photo. */
+.actionCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(43 37 38 / 0.8) 0%, rgb(43 37 38 / 0.15) 65%);
+}
+
+.actionBody {
+  position: absolute;
+  left: var(--space-5);
+  right: var(--space-7);
+  bottom: var(--space-5);
+  z-index: 1;
+  display: grid;
+  gap: 2px;
 }
 
 .actionIcon {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--color-blush);
-  color: var(--color-rose-deep);
+  width: 38px;
+  height: 38px;
   margin-bottom: var(--space-2);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.9);
+  color: var(--color-rose-deep);
 }
 
 .actionTitle {
-  font-size: var(--text-xl);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.1;
 }
 
 .actionText {
-  color: var(--color-ink-soft);
   font-size: var(--text-sm);
-  padding-right: var(--space-5); /* keep text clear of the arrow */
+  opacity: 0.92;
 }
 
 .arrow {
   position: absolute;
   right: var(--space-5);
   bottom: var(--space-5);
-  color: var(--color-rose);
+  z-index: 1;
   transition: transform var(--duration-base) var(--ease-out);
 }
 
 .actionCard:hover .arrow {
   transform: translateX(4px);
+}
+
+/* ---------- Today's inspiration ---------- */
+
+.inspoRow {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (max-width: 899.98px) {
+  .inspoRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* ---------- Two-column lower area ---------- */

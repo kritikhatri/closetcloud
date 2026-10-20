@@ -1,0 +1,54 @@
+.stack {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.md {
+  width: 300px;
+  height: 210px;
+}
+
+.sm {
+  width: 210px;
+  height: 150px;
+}
+
+.photo {
+  position: absolute;
+  top: 12%;
+  width: 42%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 5px solid #fff;
+  border-radius: var(--radius-md);
+  background: var(--color-blush-soft);
+  box-shadow: var(--shadow-lg);
+  transition: transform 500ms var(--ease-out);
+}
+
+/* Left, centre (raised, on top), right — each tilted a little. */
+.photo:nth-child(1) {
+  left: 2%;
+  transform: rotate(-9deg);
+}
+
+.photo:nth-child(2) {
+  left: 29%;
+  top: 0;
+  z-index: 2;
+  transform: rotate(1deg);
+}
+
+.photo:nth-child(3) {
+  left: 56%;
+  transform: rotate(8deg);
+}
+
+/* The fan opens slightly when you hover the area around it. */
+.stack:hover .photo:nth-child(1) {
+  transform: rotate(-13deg) translateX(-8px);
+}
+
+.stack:hover .photo:nth-child(3) {
+  transform: rotate(12deg) translateX(8px);
+}

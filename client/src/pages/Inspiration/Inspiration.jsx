@@ -11,6 +11,7 @@ export default function Inspiration() {
         eyebrow="Curated looks"
         title="Inspiration"
         description="Looks sorted by aesthetic. These are editorial photos, not pieces from your closet. Use them for ideas, then recreate them with what you own."
+        looks={['rose-maxi', 'pink-faux-fur', 'sequin-gown']}
       />
       <LookBoard />
     </>

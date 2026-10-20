@@ -1,16 +1,46 @@
+/* ---------- Plain header (form pages) ---------- */
+
 .header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-5);
   padding-bottom: var(--space-6);
   margin-bottom: var(--space-6);
   border-bottom: 1px solid var(--color-line);
 }
 
+/* ---------- Banner header (main pages) ---------- */
+
+.banner {
+  position: relative;
+  display: grid;
+  align-items: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-7);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  /* Blush fading into ivory, with a soft highlight in one corner. */
+  background:
+    radial-gradient(28rem 18rem at 90% 0%, rgb(255 255 255 / 0.7) 0%, transparent 70%),
+    linear-gradient(115deg, var(--color-blush) 0%, var(--color-blush-soft) 55%, #fdf9f5 100%);
+}
+
+@media (min-width: 700px) {
+  .banner {
+    grid-template-columns: 1fr auto;
+    padding: var(--space-7) var(--space-7);
+  }
+}
+
+/* On narrow phones the photos would crowd the text, so leave them out. */
+@media (max-width: 699.98px) {
+  .photos {
+    display: none;
+  }
+}
+
+/* ---------- Shared ---------- */
+
 .text {
-  max-width: 40rem;
+  max-width: 38rem;
 }
 
 .title {
@@ -23,8 +53,18 @@
   font-size: var(--text-lg);
 }
 
+/* On the blush banner, ink-soft drops below AA contrast, so use full ink. */
+.banner .description {
+  color: var(--color-ink);
+}
+
+.banner :global(.eyebrow) {
+  color: var(--color-rose-deep);
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+  margin-top: var(--space-5);
 }

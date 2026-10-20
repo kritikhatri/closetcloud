@@ -63,6 +63,7 @@ export default function Wardrobe() {
         title="Wardrobe"
         description="Every piece you own, photographed and sorted by category, colour, season and occasion."
         actions={items?.length > 0 && addButton}
+        looks={['cardigan-flatlay', 'stripes-flatlay', 'tee-boots-flatlay']}
       />
 
       {isLoading && (
@@ -84,7 +85,11 @@ export default function Wardrobe() {
       )}
 
       {items?.length === 0 && (
-        <EmptyState icon="hanger" title="Your closet is empty" action={addButton}>
+        <EmptyState
+          looks={['beanie-flatlay', 'weekend-flatlay', 'cardigan-flatlay']}
+          title="Your closet is empty"
+          action={addButton}
+        >
           Start with a few favourites. Snap a photo, pick a category, and the
           piece will appear here.
         </EmptyState>

@@ -9,6 +9,14 @@
   background: var(--color-surface);
 }
 
+/* Photo version: softer blush-to-white card, no dashed border. */
+.withPhotos {
+  border: 0;
+  background: linear-gradient(180deg, var(--color-blush-soft) 0%, var(--color-surface) 70%);
+  box-shadow: var(--shadow-sm);
+  padding-top: var(--space-6);
+}
+
 .iconWrap {
   display: grid;
   place-items: center;
@@ -22,6 +30,11 @@
 
 .title {
   font-size: var(--text-xl);
+}
+
+.withPhotos .title {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-2);
 }
 
 .text {
