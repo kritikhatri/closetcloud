@@ -1,0 +1,52 @@
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding: 3px; /* room for focus rings */
+  margin: -3px -3px var(--space-6);
+  scrollbar-width: none;
+}
+
+.chip {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+  transition:
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.chip:hover {
+  border-color: var(--color-ink);
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--color-rose);
+  border-color: var(--color-rose);
+  color: #fff;
+}
+
+/* Pinterest masonry (same CSS-columns technique as the wardrobe grid). */
+.board {
+  list-style: none;
+  padding: 0;
+  column-width: 230px;
+  column-gap: var(--space-5);
+}
+
+.cell {
+  break-inside: avoid;
+  margin-bottom: var(--space-6);
+}
+
+@media (max-width: 599.98px) {
+  .board {
+    column-width: 150px;
+    column-gap: var(--space-3);
+  }
+}

@@ -1,4 +1,4 @@
-import EmptyState from '../../components/EmptyState/EmptyState.jsx'
+import LookBoard from '../../components/LookBoard/LookBoard.jsx'
 import PageHeader from '../../components/PageHeader/PageHeader.jsx'
 import usePageTitle from '../../hooks/usePageTitle.js'
 
@@ -10,12 +10,9 @@ export default function Inspiration() {
       <PageHeader
         eyebrow="Curated looks"
         title="Inspiration"
-        description="Looks sorted by aesthetic, season and occasion. Save the ones you love and recreate them with your own pieces."
+        description="Looks sorted by aesthetic. These are editorial photos, not pieces from your closet. Use them for ideas, then recreate them with what you own."
       />
-      <EmptyState icon="inspiration" title="Inspiration is on its way">
-        Curated looks (casual, college, minimal, coquette, streetwear, date
-        night and formal) will be collected here.
-      </EmptyState>
+      <LookBoard />
     </>
   )
 }

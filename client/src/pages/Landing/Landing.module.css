@@ -1,0 +1,280 @@
+.page {
+  /* The tilted polaroids poke slightly past the screen edge on phones.
+     clip trims that without creating a scroll container — unlike
+     overflow: hidden, which would stop the sticky header from sticking. */
+  overflow-x: clip;
+  /* A soft blush glow behind the hero — subtle, not a flat pink slab. */
+  background:
+    radial-gradient(60rem 40rem at 85% -10%, var(--color-blush) 0%, transparent 60%),
+    radial-gradient(40rem 30rem at -10% 20%, var(--color-blush-soft) 0%, transparent 60%),
+    var(--color-ivory);
+}
+
+/* ================= Header ================= */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgb(251 247 242 / 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgb(232 222 218 / 0.7);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 68px;
+}
+
+.headerNav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.headerLink {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.headerLink:hover {
+  color: var(--color-rose-deep);
+}
+
+/* On small phones keep just the logo and the main button. */
+@media (max-width: 599.98px) {
+  .headerLink {
+    display: none;
+  }
+}
+
+/* ================= Hero ================= */
+
+.hero {
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+  padding-block: var(--space-8) var(--space-9);
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 1.05fr 1fr;
+    min-height: calc(100vh - 68px);
+    padding-block: var(--space-7);
+  }
+}
+
+.heroText {
+  max-width: 34rem;
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 1.6rem + 5.2vw, 5.75rem);
+  line-height: 1;
+  margin-block: var(--space-4) var(--space-5);
+}
+
+.heroTitle em {
+  color: var(--color-rose);
+}
+
+.heroLead {
+  font-size: var(--text-lg);
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-6);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ---------- Polaroid collage ---------- */
+
+.collage {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 1 / 1.08;
+  justify-self: center;
+}
+
+.polaroid {
+  position: absolute;
+  margin: 0;
+  padding: 10px 10px 0;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: var(--shadow-lg);
+  transition: transform 500ms var(--ease-out);
+}
+
+.polaroid img {
+  width: 100%;
+  /* height: auto is needed so aspect-ratio wins over the image's
+     height attribute (which would otherwise force a tall strip). */
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.polaroid figcaption {
+  padding: var(--space-2) 0 var(--space-3);
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--color-ink-soft);
+}
+
+.photoA {
+  left: 0;
+  top: 10%;
+  width: 46%;
+  transform: rotate(-6deg);
+}
+
+.photoB {
+  right: 0;
+  top: 0;
+  width: 48%;
+  transform: rotate(5deg);
+}
+
+.photoC {
+  left: 27%;
+  bottom: 0;
+  width: 44%;
+  z-index: 2;
+  transform: rotate(-1.5deg);
+}
+
+/* Each photo straightens a little when you hover the collage. */
+.collage:hover .photoA {
+  transform: rotate(-3deg) translate(-6px, -4px);
+}
+.collage:hover .photoB {
+  transform: rotate(2deg) translate(6px, -6px);
+}
+.collage:hover .photoC {
+  transform: rotate(0deg) translateY(-6px);
+}
+
+/* ================= Marquee ================= */
+
+.marquee {
+  overflow: hidden;
+  padding-block: var(--space-4);
+  border-block: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+.marqueeItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding-right: var(--space-6);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-2xl);
+  white-space: nowrap;
+}
+
+.star {
+  font-style: normal;
+  font-size: var(--text-base);
+  color: var(--color-rose);
+}
+
+/* Moves exactly half the track (one copy of the list), then restarts —
+   because both halves are identical, the jump is invisible. */
+@keyframes scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ================= Sections ================= */
+
+.section {
+  padding-block: var(--space-9) var(--space-7);
+  /* So the sticky header doesn't cover the heading after an #anchor jump. */
+  scroll-margin-top: 68px;
+}
+
+.sectionHead {
+  max-width: 38rem;
+  margin-bottom: var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.sectionTitle {
+  font-size: var(--text-3xl);
+}
+
+.sectionTitle em {
+  color: var(--color-rose);
+}
+
+/* ---------- How it works ---------- */
+
+.how {
+  padding-block: var(--space-9);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+  scroll-margin-top: 68px;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-6);
+}
+
+.step {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-ink);
+}
+
+.stepNumber {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-3xl);
+  line-height: 1;
+  color: var(--color-rose);
+}
+
+.cta {
+  margin-top: var(--space-7);
+}
+
+/* ================= Footer ================= */
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+  font-size: var(--text-sm);
+}

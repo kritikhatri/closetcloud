@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { NavLink, Outlet, ScrollRestoration, useLocation } from 'react-router'
+import { NavLink, Outlet, useLocation } from 'react-router'
 import Icon from '../../components/Icon/Icon.jsx'
 import Logo from '../../components/Logo/Logo.jsx'
 import ToastProvider from '../../components/Toast/ToastProvider.jsx'
@@ -107,8 +107,6 @@ export default function AppLayout() {
             ))}
           </ul>
         </nav>
-
-        <ScrollRestoration />
       </div>
     </ToastProvider>
   )
