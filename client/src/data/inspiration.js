@@ -18,6 +18,8 @@
 
 export const AESTHETICS = [
   { value: 'coquette', label: 'Coquette' },
+  { value: 'cottagecore', label: 'Cottagecore' },
+  { value: 'old-money', label: 'Old money' },
   { value: 'minimal', label: 'Minimal' },
   { value: 'streetwear', label: 'Streetwear' },
   { value: 'college', label: 'College' },
@@ -82,6 +84,49 @@ export const LOOKS = [
   { id: 'black-satin', title: 'Black satin column', aesthetic: 'formal', season: 'winter', imageId: '1623580674393-edf6eb7090f8', ratio: 1.5, photographer: 'Knight Duong', photoId: '77iyep3uIjg' },
   { id: 'sequin-gown', title: 'Champagne sequins', aesthetic: 'formal', season: 'winter', imageId: '1765870973443-705ef47bfec5', ratio: 1.5, photographer: 'FOTOGRAFÍA EDITORIAL', photoId: 'ChqO7zfYJSw' },
   { id: 'wine-mermaid', title: 'Wine mermaid gown', aesthetic: 'formal', season: 'autumn', imageId: '1583039949165-96ee24b0d8de', ratio: 1.25, photographer: 'Happy Face Emoji', photoId: 'cqgSaFgMSqg' },
+
+  // ---------- Cottagecore ----------
+  { id: 'hay-bale-florals', title: 'Florals by the hay bales', aesthetic: 'cottagecore', season: 'summer', imageId: '1786365448711-21f6a9867868', ratio: 1.333, photographer: 'Freddie Addery', photoId: 'bHuiU6kGU1Y' },
+  { id: 'wildflower-field', title: 'Wildflower field dress', aesthetic: 'cottagecore', season: 'summer', imageId: '1780301663843-80c3c920e3d5', ratio: 0.667, photographer: 'Margo Evardson', photoId: '_pJWA6zdn2g' },
+  { id: 'gazebo-vintage', title: 'Vintage dress & corset belt', aesthetic: 'cottagecore', season: 'autumn', imageId: '1764684809273-edd203f9eb71', ratio: 1.25, photographer: 'Ali Karimiboroujeni', photoId: 'oQ5R5WcK35Y' },
+  { id: 'dappled-floral', title: 'Floral dress in dappled light', aesthetic: 'cottagecore', season: 'spring', imageId: '1782786982033-d68e8612ba9a', ratio: 1.5, photographer: 'Alexander Mass', photoId: '04by5jFaFE8' },
+  { id: 'silk-scarves', title: 'Slip dresses & silk headscarves', aesthetic: 'cottagecore', season: 'summer', imageId: '1679025907388-30694aebf154', ratio: 1.4, photographer: 'Megan Ruth', photoId: '0ul16kAUx7I' },
+  { id: 'daisy-bouquet', title: 'Daisies & a floral midi', aesthetic: 'cottagecore', season: 'spring', imageId: '1786365426273-0ce22b4ef554', ratio: 1.333, photographer: 'Freddie Addery', photoId: 'DgjfVW7hkzM' },
+
+  // ---------- Old money ----------
+  { id: 'camel-blazer-hat', title: 'Camel blazer & wide-brim hat', aesthetic: 'old-money', season: 'autumn', imageId: '1583002083769-0bd781675d2f', ratio: 1.5, photographer: 'Marcos Paulo Prado', photoId: '1-HOJGOtFcg' },
+  { id: 'coat-white-bag', title: 'Black coat & white top-handle bag', aesthetic: 'old-money', season: 'winter', imageId: '1633450796397-1e1344fde97a', ratio: 1.5, photographer: 'Luthfi Ali Qodri', photoId: 'IfMv7JSdT3E' },
+  { id: 'beige-blazer-leaves', title: 'Beige blazer in the leaves', aesthetic: 'old-money', season: 'autumn', imageId: '1590873802674-55bb8f947bc5', ratio: 1.5, photographer: 'Roman Holoschchuk', photoId: 'ZnHpOhHnkDY' },
+  { id: 'beige-suit', title: 'Beige suit, crisp shirt', aesthetic: 'old-money', season: 'spring', imageId: '1779406166699-662a041a12a9', ratio: 1.5, photographer: 'ola szkolda', photoId: '6A1dE8VEENc' },
+  { id: 'tan-blazer', title: 'Tan belted blazer', aesthetic: 'old-money', season: 'autumn', imageId: '1605017283705-d15cb0346bf2', ratio: 1.5, photographer: 'Marcel Strauß', photoId: '6NZJpSxYFEc' },
+  { id: 'vintage-car-coat', title: 'Camel coat & a vintage car', aesthetic: 'old-money', season: 'autumn', imageId: '1602192937302-e35469228d35', ratio: 1.5, photographer: 'Benjamin Child', photoId: 'VcS-SjGqKk4' },
+  { id: 'station-trench', title: 'Trench at the train station', aesthetic: 'old-money', season: 'autumn', imageId: '1788120680424-60c0069f9e61', ratio: 1.25, photographer: 'Vlad Ionita', photoId: 'pP6iXsMGpo8' },
+
+  // ---------- More coquette ----------
+  { id: 'pointe-tulle', title: 'Pointe shoes & pink tulle', aesthetic: 'coquette', season: 'spring', imageId: '1703797203337-f942475d73a2', ratio: 1.497, photographer: 'Haley Parson', photoId: 'axe33ZnYCPw' },
+  { id: 'ballet-ornaments', title: 'Ballet slippers, holiday edition', aesthetic: 'coquette', season: 'winter', imageId: '1702335708964-b8e70502398f', ratio: 0.667, photographer: 'Haley Parson', photoId: 'FB25FQaT0qU' },
+  { id: 'pink-clutch', title: 'Eyelet dress & a pink clutch', aesthetic: 'coquette', season: 'summer', imageId: '1789110854836-a7e790d83736', ratio: 1.5, photographer: 'engin akyurt', photoId: 'gw70gEsJjlk' },
+  { id: 'pink-slip', title: 'Pale pink slip dress', aesthetic: 'coquette', season: 'summer', imageId: '1618502109256-2028fedcc430', ratio: 1.5, photographer: 'Eddy Abimbi', photoId: 'gnE3nTEKUuw' },
+
+  // ---------- More minimal ----------
+  { id: 'beret-flatlay', title: 'Beret, knit & strappy sandals', aesthetic: 'minimal', season: 'spring', imageId: '1625899845678-3fad6a4a1846', ratio: 1.333, photographer: 'Leslie Leon', photoId: '9cOAfYJjJUk' },
+  { id: 'oversized-blazer', title: 'Oversized beige blazer', aesthetic: 'minimal', season: 'spring', imageId: '1747815065172-a3234582223e', ratio: 1.4, photographer: 'Alina Matveycheva', photoId: 'MNwRn2MMHPM' },
+  { id: 'coffee-coat', title: 'Beige coat & morning coffee', aesthetic: 'minimal', season: 'autumn', imageId: '1618928727380-bbbf229f71d1', ratio: 1.5, photographer: 'Marina Abrosimova', photoId: 'djXyaMIsOvo' },
+  { id: 'black-trench-slip', title: 'Black trench over a slip dress', aesthetic: 'minimal', season: 'autumn', imageId: '1790802222952-eb7e610de0d1', ratio: 1.5, photographer: 'Marina Nazina', photoId: 'S9WUsF-Is7c' },
+
+  // ---------- More casual (lots of cosy autumn) ----------
+  { id: 'bench-coat', title: 'Camel coat, jeans & boots', aesthetic: 'casual', season: 'autumn', imageId: '1638485581193-a7a88f60ff7a', ratio: 1.5, photographer: 'freestocks', photoId: 'uPycVJ87eAc' },
+  { id: 'plaid-coat', title: 'Plaid coat in the park', aesthetic: 'casual', season: 'autumn', imageId: '1578632292335-df3abbb0d586', ratio: 1.5, photographer: 'Max Titov', photoId: 'Mhktr6dFD3I' },
+  { id: 'blanket-scarf', title: 'Blanket scarf season', aesthetic: 'casual', season: 'autumn', imageId: '1698345742000-d12044e807a2', ratio: 0.667, photographer: 'Chiriac Bianca', photoId: 'mW8Him6M1Es' },
+  { id: 'umbrella-walk', title: 'Rainy-day neutrals', aesthetic: 'casual', season: 'autumn', imageId: '1728992119176-2b2f3fd7454b', ratio: 1.25, photographer: 'Mohammad Hossein Mirzagol', photoId: 'GYu32I7NrOw' },
+  { id: 'tan-crossbody', title: 'Tan crossbody & denim', aesthetic: 'casual', season: 'summer', imageId: '1523779105320-d1cd346ff52b', ratio: 0.663, photographer: 'Tamara Bellis', photoId: 'HY1fq4ZtLTE' },
+  { id: 'cobalt-coast', title: 'Cobalt dress by the sea', aesthetic: 'casual', season: 'summer', imageId: '1784385411619-f67767c966fe', ratio: 1.5, photographer: 'Laura Chouette', photoId: '96f4kfzK2RI' },
+  { id: 'white-trench', title: 'Crisp white trench', aesthetic: 'casual', season: 'spring', imageId: '1773955130654-88b0f92118d2', ratio: 1.25, photographer: 'Margo Evardson', photoId: 'al7AbyMvj1Q' },
+
+  // ---------- More streetwear & date night ----------
+  { id: 'pink-sweatsuit', title: 'Pink sweatsuit', aesthetic: 'streetwear', season: 'spring', imageId: '1655361930131-e390916f167c', ratio: 1.25, photographer: 'Viacheslav Volodin', photoId: 'JqcizoG8ilY' },
+  { id: 'crop-wide-leg', title: 'Crop top & wide-leg trousers', aesthetic: 'streetwear', season: 'summer', imageId: '1700557478863-bf8c59b973fe', ratio: 1.4, photographer: 'Virginia Marinova', photoId: '1Hghp8Y7zfU' },
+  { id: 'blazer-little-bag', title: 'Black blazer & a little bag', aesthetic: 'date-night', season: 'autumn', imageId: '1700557478265-09bf56763a5d', ratio: 1.4, photographer: 'Virginia Marinova', photoId: 'CulhD_FRXEY' },
 ]
 
 /*

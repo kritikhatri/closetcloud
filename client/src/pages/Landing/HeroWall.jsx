@@ -11,9 +11,9 @@ import styles from './HeroWall.module.css'
   identical, the snap is invisible — it looks like it never ends.
 */
 const columns = [
-  { ids: ['pink-faux-fur', 'black-cami', 'stripes-flatlay', 'blush-satin', 'teal-coat', 'oversized-hoodie'], duration: '55s' },
-  { ids: ['ivory-coat', 'tiered-pink', 'leather-mini', 'cardigan-flatlay', 'black-satin', 'denim-cargo'], duration: '65s', reverse: true },
-  { ids: ['rose-maxi', 'cream-suit', 'pink-corset', 'white-crosswalk', 'sequin-gown', 'gingham-bag'], duration: '60s' },
+  { ids: ['pink-faux-fur', 'pointe-tulle', 'black-cami', 'hay-bale-florals', 'stripes-flatlay', 'blush-satin'], duration: '55s' },
+  { ids: ['ivory-coat', 'tiered-pink', 'beige-blazer-leaves', 'leather-mini', 'pink-clutch', 'cardigan-flatlay'], duration: '65s', reverse: true },
+  { ids: ['rose-maxi', 'cream-suit', 'silk-scarves', 'pink-corset', 'white-crosswalk', 'coat-white-bag'], duration: '60s' },
 ]
 
 const byId = Object.fromEntries(LOOKS.map((look) => [look.id, look]))

@@ -12,6 +12,8 @@ const byId = Object.fromEntries(LOOKS.map((look) => [look.id, look]))
 // One cover photo per aesthetic for the "Find your aesthetic" cards.
 const aestheticCovers = {
   coquette: 'tiered-pink',
+  cottagecore: 'hay-bale-florals',
+  'old-money': 'beige-blazer-leaves',
   minimal: 'cream-suit',
   streetwear: 'tee-joggers',
   college: 'denim-cargo',
