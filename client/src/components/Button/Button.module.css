@@ -8,6 +8,7 @@
   font-weight: 500;
   letter-spacing: 0.01em;
   white-space: nowrap;
+  text-decoration: none; /* for ButtonLink, which renders an <a> */
   transition:
     background-color var(--duration-fast) ease,
     border-color var(--duration-fast) ease,

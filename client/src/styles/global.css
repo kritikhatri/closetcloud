@@ -78,14 +78,16 @@ p {
   text-wrap: pretty;
 }
 
-a {
+/* :where() gives these zero extra specificity, so any component class
+   (like a button-styled link) can override them without a fight. */
+:where(a) {
   color: var(--color-rose);
   text-underline-offset: 0.2em;
   text-decoration-thickness: 1px;
   transition: color var(--duration-fast) ease;
 }
 
-a:hover {
+:where(a):hover {
   color: var(--color-rose-deep);
 }
 

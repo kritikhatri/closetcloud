@@ -1,0 +1,184 @@
+/* ================= Shared ================= */
+
+.shell {
+  min-height: 100vh;
+}
+
+.main {
+  min-width: 0; /* lets wide content shrink inside the grid instead of overflowing */
+  padding-block: var(--space-7) var(--space-9);
+}
+
+/* Programmatic focus target — no ring needed, it isn't interactive. */
+.main:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Hidden until a keyboard user presses Tab on page load. */
+.skipLink {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--duration-fast) ease;
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+  color: #fff;
+}
+
+.sidebar ul,
+.tabbar ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* ================= Desktop: sidebar ================= */
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-4);
+  border-right: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+.sidebarLogo {
+  padding-inline: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.sideNav {
+  flex: 1; /* pushes the Settings link to the bottom */
+}
+
+.sideNav ul {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.sideLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink-soft);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.sideLink:hover {
+  background: var(--color-blush-soft);
+  color: var(--color-ink);
+}
+
+.sideLink.active {
+  background: var(--color-blush);
+  color: var(--color-rose-deep);
+}
+
+/* ================= Mobile: top bar + tab bar ================= */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--gutter);
+  /* frosted-glass bar: content blurs softly as it scrolls underneath */
+  background: rgb(251 247 242 / 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.topbarSettings {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--color-ink);
+}
+
+.topbarSettings.active {
+  background: var(--color-blush);
+  color: var(--color-rose-deep);
+}
+
+.tabbar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-line);
+  /* keeps tabs above the iPhone home indicator */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tabbar ul {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.tabLink {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: var(--space-2) 0;
+  min-height: 56px;
+  color: var(--color-ink-soft);
+  font-size: 0.6875rem; /* 11px — labels must fit five across on a small phone */
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.tabLink.active {
+  color: var(--color-rose-deep);
+}
+
+/* ================= Breakpoints ================= */
+
+@media (min-width: 900px) {
+  .shell {
+    display: grid;
+    grid-template-columns: 248px 1fr;
+  }
+
+  .topbar,
+  .tabbar {
+    display: none;
+  }
+}
+
+@media (max-width: 899.98px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    padding-top: var(--space-6);
+    /* room so the fixed tab bar never covers the last bit of content */
+    padding-bottom: calc(var(--space-9) + env(safe-area-inset-bottom));
+  }
+}

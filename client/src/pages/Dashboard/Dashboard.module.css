@@ -1,0 +1,100 @@
+.welcome {
+  margin-bottom: var(--space-7);
+}
+
+.greeting {
+  font-size: var(--text-4xl);
+  margin-top: var(--space-3);
+}
+
+.greeting em {
+  color: var(--color-rose);
+}
+
+.section {
+  margin-bottom: var(--space-7);
+}
+
+.sectionTitle {
+  margin-bottom: var(--space-4);
+}
+
+/* ---------- Quick actions ---------- */
+
+.actions {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.actionCard {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  color: var(--color-ink);
+  text-decoration: none;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) ease;
+}
+
+.actionCard:hover {
+  color: var(--color-ink);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.actionIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-blush);
+  color: var(--color-rose-deep);
+  margin-bottom: var(--space-2);
+}
+
+.actionTitle {
+  font-size: var(--text-xl);
+}
+
+.actionText {
+  color: var(--color-ink-soft);
+  font-size: var(--text-sm);
+  padding-right: var(--space-5); /* keep text clear of the arrow */
+}
+
+.arrow {
+  position: absolute;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  color: var(--color-rose);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.actionCard:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ---------- Two-column lower area ---------- */
+
+.columns {
+  display: grid;
+  gap: 0 var(--space-6);
+}
+
+@media (min-width: 1100px) {
+  .columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -24,7 +24,7 @@ Then open http://localhost:5180.
 
 - [x] Phase 1 — Environment setup
 - [x] Phase 2 — Design system (tokens, typography, buttons)
-- [ ] Phase 3 — App shell and navigation
+- [x] Phase 3 — App shell and navigation
 - [ ] Phase 4 — Wardrobe UI
 - [ ] Phase 5 — Backend and database schema
 - [ ] Phase 6 — Authentication
