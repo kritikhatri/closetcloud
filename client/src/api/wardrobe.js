@@ -1,4 +1,5 @@
 import { validateItem } from '../utils/validateItem.js'
+import { ApiError } from './client.js'
 
 /*
   Wardrobe API — TEMPORARY local version.
@@ -12,26 +13,41 @@ import { validateItem } from '../utils/validateItem.js'
   Limitations of the local version (all fixed by the real backend):
     • data lives only in this browser — not shared across devices
     • localStorage holds roughly 5 MB, so about 30–50 photos
-    • there's no account, so anyone using this browser sees the closet
+    • each account gets its own storage slot, but it's still the browser
+      keeping it apart, not the server
 */
 
-const STORAGE_KEY = 'closetcloud:wardrobe:v1'
+const LEGACY_KEY = 'closetcloud:wardrobe:v1' // used before accounts existed
+let ownerId = null
 
-/* An error that remembers an HTTP-style status code, so pages can tell
-   "not found" (404) apart from "invalid input" (400). The real API in
-   Phase 7 will throw the same kind of error. */
-export class ApiError extends Error {
-  constructor(message, status, fieldErrors) {
-    super(message)
-    this.name = 'ApiError'
-    this.status = status
-    this.fieldErrors = fieldErrors
+/*
+  Called by the AuthProvider whenever the logged-in user changes, so each
+  account on this browser has its own closet. The first account to log in
+  inherits any pieces saved before accounts existed.
+*/
+export function setWardrobeOwner(userId) {
+  ownerId = userId
+  if (!userId) return
+  try {
+    const legacy = localStorage.getItem(LEGACY_KEY)
+    if (legacy && !localStorage.getItem(storageKey())) {
+      localStorage.setItem(storageKey(), legacy)
+      localStorage.removeItem(LEGACY_KEY)
+    }
+  } catch (error) {
+    console.error('Could not migrate saved wardrobe', error)
   }
 }
 
+function storageKey() {
+  if (!ownerId) throw new ApiError('Please log in to continue.', 401)
+  return `closetcloud:wardrobe:v1:${ownerId}`
+}
+
 function readAll() {
+  const key = storageKey()
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(key)
     return raw ? JSON.parse(raw) : []
   } catch (error) {
     console.error('Could not read wardrobe from localStorage', error)
@@ -40,8 +56,9 @@ function readAll() {
 }
 
 function writeAll(items) {
+  const key = storageKey() // outside the try: "not logged in" isn't "storage full"
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+    localStorage.setItem(key, JSON.stringify(items))
   } catch (error) {
     // The most likely cause is the ~5 MB storage limit.
     console.error('Could not save wardrobe to localStorage', error)

@@ -161,6 +161,30 @@
   color: var(--color-rose-deep);
 }
 
+/* The account link at the bottom: avatar + name, "Settings" underneath. */
+.account {
+  min-height: 52px;
+}
+
+.accountText {
+  display: grid;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.accountName {
+  color: var(--color-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accountHint {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--color-ink-soft);
+}
+
 /* ================= Mobile: top bar + tab bar ================= */
 
 .topbar {

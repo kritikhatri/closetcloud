@@ -48,6 +48,18 @@
   }
 }
 
+/* "Log in" stays visible on phones, unlike the section links. */
+.loginLink {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.loginLink:hover {
+  color: var(--color-rose-deep);
+}
+
 /* ================= Hero ================= */
 
 .hero {

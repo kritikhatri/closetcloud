@@ -1,10 +1,11 @@
-import { useSearchParams } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import { ButtonLink } from '../../components/Button/Button.jsx'
 import LookBoard from '../../components/LookBoard/LookBoard.jsx'
 import Logo from '../../components/Logo/Logo.jsx'
 import { AESTHETICS, LOOKS, UNSPLASH_URL, lookImageUrl } from '../../data/inspiration.js'
+import useAuth from '../../hooks/useAuth.js'
 import usePageTitle from '../../hooks/usePageTitle.js'
-import HeroWall from './HeroWall.jsx'
+import HeroWall from '../../components/HeroWall/HeroWall.jsx'
 import styles from './Landing.module.css'
 
 const byId = Object.fromEntries(LOOKS.map((look) => [look.id, look]))
@@ -67,6 +68,7 @@ function Bow({ className }) {
 export default function Landing() {
   usePageTitle(null) // just "ClosetCloud"
   const [, setSearchParams] = useSearchParams()
+  const { user } = useAuth()
 
   // Filters the mood board to one aesthetic and scrolls down to it.
   function openBoard(aesthetic) {
@@ -92,9 +94,20 @@ export default function Landing() {
             <a href="#how" className={styles.headerLink}>
               How it works
             </a>
-            <ButtonLink to="/home" size="sm">
-              Open my closet
-            </ButtonLink>
+            {user ? (
+              <ButtonLink to="/home" size="sm">
+                Open my closet
+              </ButtonLink>
+            ) : (
+              <>
+                <Link to="/login" className={styles.loginLink}>
+                  Log in
+                </Link>
+                <ButtonLink to="/signup" size="sm">
+                  Sign up
+                </ButtonLink>
+              </>
+            )}
           </nav>
         </div>
       </header>
@@ -120,7 +133,11 @@ export default function Landing() {
                 your week, and steal ideas from a board of looks worth saving.
               </p>
               <div className={styles.heroActions}>
-                <ButtonLink to="/home">Open my closet</ButtonLink>
+                {user ? (
+                  <ButtonLink to="/home">Open my closet</ButtonLink>
+                ) : (
+                  <ButtonLink to="/signup">Start your closet</ButtonLink>
+                )}
                 <a href="#looks" className={styles.textLink}>
                   Browse the mood board ↓
                 </a>

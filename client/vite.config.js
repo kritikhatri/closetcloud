@@ -9,5 +9,12 @@ export default defineConfig({
   server: {
     port: 5180,
     strictPort: true,
+    // The React app calls "/api/...". In development Vite forwards those
+    // requests to the Express server on port 4000. To the browser it all
+    // looks like one website, so the login cookie just works, with no
+    // cross-site cookie or CORS setup needed.
+    proxy: {
+      '/api': 'http://localhost:4000',
+    },
   },
 })

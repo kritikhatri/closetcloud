@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useId, useState } from 'react'
 import styles from './Field.module.css'
 
 /*
@@ -51,6 +51,39 @@ export function TextField({ label, optional, hint, error, ...inputProps }) {
         aria-describedby={describedBy}
         {...inputProps}
       />
+    </FieldFrame>
+  )
+}
+
+/*
+  Password input with a Show/Hide toggle, which helps people (especially
+  on phones) check they've typed it right. aria-pressed tells screen
+  readers whether the password is currently visible.
+*/
+export function PasswordField({ label, hint, error, ...inputProps }) {
+  const { id, hintId, errorId, describedBy } = useFieldIds(hint, error)
+  const [visible, setVisible] = useState(false)
+  return (
+    <FieldFrame {...{ id, label, hint, hintId, error, errorId }}>
+      <div className={styles.passwordWrap}>
+        <input
+          id={id}
+          type={visible ? 'text' : 'password'}
+          className={`${styles.input} ${styles.passwordInput}`}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={describedBy}
+          {...inputProps}
+        />
+        <button
+          type="button"
+          className={styles.reveal}
+          aria-pressed={visible}
+          onClick={() => setVisible((v) => !v)}
+        >
+          {visible ? 'Hide' : 'Show'}
+          <span className="visually-hidden"> password</span>
+        </button>
+      </div>
     </FieldFrame>
   )
 }

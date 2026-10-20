@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
+import Avatar from '../../components/Avatar/Avatar.jsx'
 import { dailyLooks, lookImageUrl } from '../../data/inspiration.js'
+import useAuth from '../../hooks/useAuth.js'
 import Icon from '../../components/Icon/Icon.jsx'
 import Logo from '../../components/Logo/Logo.jsx'
 import ToastProvider from '../../components/Toast/ToastProvider.jsx'
@@ -22,6 +24,8 @@ export default function AppLayout() {
   const { pathname } = useLocation()
   const mainRef = useRef(null)
   const isFirstRender = useRef(true)
+  // AppLayout only renders inside RequireAuth, so user is always set here.
+  const { user } = useAuth()
   // Read the date once (see Dashboard for why) and pick today's look.
   const [lookOfDay] = useState(() => dailyLooks(new Date(), 1, 7)[0])
 
@@ -77,9 +81,12 @@ export default function AppLayout() {
             </span>
           </Link>
 
-          <NavLink to="/settings" className={linkClass(styles.sideLink)}>
-            <Icon name="user" />
-            Settings
+          <NavLink to="/settings" className={linkClass(`${styles.sideLink} ${styles.account}`)}>
+            <Avatar name={user.name} size="sm" />
+            <span className={styles.accountText}>
+              <span className={styles.accountName}>{user.name}</span>
+              <span className={styles.accountHint}>Settings</span>
+            </span>
           </NavLink>
         </aside>
 
@@ -89,9 +96,9 @@ export default function AppLayout() {
           <NavLink
             to="/settings"
             className={linkClass(styles.topbarSettings)}
-            aria-label="Settings"
+            aria-label={`Settings for ${user.name}`}
           >
-            <Icon name="user" />
+            <Avatar name={user.name} size="md" />
           </NavLink>
         </header>
 

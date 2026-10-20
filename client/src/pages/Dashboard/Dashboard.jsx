@@ -11,6 +11,7 @@ import LookCard from '../../components/LookCard/LookCard.jsx'
 import PhotoStack from '../../components/PhotoStack/PhotoStack.jsx'
 import { dailyLooks, getLooks, lookImageUrl } from '../../data/inspiration.js'
 import useAsyncData from '../../hooks/useAsyncData.js'
+import useAuth from '../../hooks/useAuth.js'
 import usePageTitle from '../../hooks/usePageTitle.js'
 import styles from './Dashboard.module.css'
 
@@ -48,6 +49,8 @@ function getGreeting(hour) {
 
 export default function Dashboard() {
   usePageTitle('Home')
+  const { user } = useAuth()
+  const firstName = user.name.split(' ')[0]
   // listItems returns newest first, so the first few are the most recent.
   const { data: items, error, isLoading } = useAsyncData(listItems)
 
@@ -71,7 +74,7 @@ export default function Dashboard() {
         <div className={styles.welcomeText}>
           <p className="eyebrow">{today}</p>
           <h1 className={styles.greeting}>
-            {getGreeting(now.getHours())}.
+            {getGreeting(now.getHours())}, {firstName}.
             <br />
             <em>What are we wearing?</em>
           </h1>

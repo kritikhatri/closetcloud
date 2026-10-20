@@ -1,0 +1,51 @@
+// ClosetCloud database schema.
+//
+// Each `model` becomes a table in PostgreSQL. Prisma reads this file to
+//   1. create migrations (versioned SQL that builds/changes the tables)
+//   2. generate a JavaScript client with methods like prisma.user.create()
+//
+// After editing this file run:  npm run db:migrate
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// One row per person with an account.
+model User {
+  // UUIDs are random, so ids can't be guessed by counting (1, 2, 3...).
+  id           String   @id @default(uuid()) @db.Uuid
+  // @unique adds a database rule (and an index): no two accounts can share
+  // an email. We always store emails lowercased so "A@x.com" = "a@x.com".
+  email        String   @unique
+  name         String
+  // Never the password itself, only a salted scrypt hash of it.
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // One user → many sessions (e.g. logged in on a phone and a laptop).
+  sessions Session[]
+
+  @@map("users") // table name in PostgreSQL
+}
+
+// One row per logged-in browser.
+model Session {
+  // The browser's cookie holds a long random token. We store only its
+  // SHA-256 hash here, so a leaked database can't be used to log in.
+  id        String   @id
+  userId    String   @db.Uuid
+  // onDelete: Cascade → deleting a user also deletes their sessions.
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  // Speeds up "find/delete all sessions for this user".
+  @@index([userId])
+  @@map("sessions")
+}

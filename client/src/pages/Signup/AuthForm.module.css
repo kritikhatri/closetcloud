@@ -1,0 +1,20 @@
+/* Shared by the Log in and Sign up forms. */
+
+.form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.formError {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+  font-size: var(--text-sm);
+}
+
+.submit {
+  width: 100%;
+  min-height: 48px;
+  margin-top: var(--space-2);
+}

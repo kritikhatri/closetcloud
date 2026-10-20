@@ -1,0 +1,29 @@
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-blush) 0%, #e9c4c6 100%);
+  color: var(--color-rose-deep);
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.sm {
+  width: 28px;
+  height: 28px;
+  font-size: 0.95rem;
+}
+
+.md {
+  width: 36px;
+  height: 36px;
+  font-size: 1.15rem;
+}
+
+.lg {
+  width: 72px;
+  height: 72px;
+  font-size: 2rem;
+}
