@@ -1,0 +1,50 @@
+.dialog {
+  /* Browsers centre a modal <dialog> with margin: auto, but our global
+     reset sets every margin to 0 — so we restore it here. */
+  margin: auto;
+  width: min(28rem, calc(100vw - 2 * var(--space-4)));
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-lg);
+}
+
+.dialog::backdrop {
+  background: rgb(43 37 38 / 0.4);
+  backdrop-filter: blur(2px);
+}
+
+.dialog[open] {
+  animation: pop-in var(--duration-base) var(--ease-out);
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+.body {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-6);
+}
+
+.title {
+  font-size: var(--text-xl);
+}
+
+.text {
+  color: var(--color-ink-soft);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}

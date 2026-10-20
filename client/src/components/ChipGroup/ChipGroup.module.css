@@ -1,0 +1,83 @@
+.group {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.legend {
+  padding: 0;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.optional {
+  font-weight: 400;
+  color: var(--color-ink-soft);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.chip:hover {
+  border-color: var(--color-ink);
+}
+
+/* The real input is invisible but still focusable and clickable,
+   stretched over the whole chip. */
+.input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* :has() lets the label react to its own input's state. */
+.chip:has(.input:checked) {
+  background: var(--color-blush);
+  border-color: var(--color-rose-deep);
+  color: var(--color-rose-deep);
+  font-weight: 500;
+}
+
+.chip:has(.input:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+
+.swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgb(43 37 38 / 0.2);
+  flex-shrink: 0;
+}
+
+.error {
+  font-size: var(--text-sm);
+  color: var(--color-danger);
+}

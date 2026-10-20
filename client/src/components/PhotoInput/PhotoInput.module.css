@@ -1,0 +1,87 @@
+.wrap {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.dropzone {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: var(--space-2);
+  aspect-ratio: 4 / 5;
+  padding: var(--space-5);
+  text-align: center;
+  background: var(--color-blush-soft);
+  border: 1.5px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease;
+}
+
+.dropzone:hover,
+.dragging {
+  background: var(--color-blush);
+  border-color: var(--color-rose-deep);
+}
+
+/* The real <input> is visually hidden, so show its focus on the box. */
+.dropzone:has(input:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+
+.invalid {
+  border-color: var(--color-danger);
+}
+
+.dropIcon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-rose-deep);
+  box-shadow: var(--shadow-sm);
+}
+
+.dropTitle {
+  font-weight: 500;
+  color: var(--color-rose-deep);
+}
+
+.dropHint {
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+}
+
+.preview {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+}
+
+.preview img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.previewActions {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+}
+
+.error {
+  font-size: var(--text-sm);
+  color: var(--color-danger);
+}

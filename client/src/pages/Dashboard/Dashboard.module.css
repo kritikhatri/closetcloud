@@ -19,6 +19,23 @@
   margin-bottom: var(--space-4);
 }
 
+.sectionHead .sectionTitle {
+  margin-bottom: 0; /* the head row already provides the spacing */
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.viewAll {
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
 /* ---------- Quick actions ---------- */
 
 .actions {

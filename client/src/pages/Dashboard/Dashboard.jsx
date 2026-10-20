@@ -1,13 +1,19 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { listItems } from '../../api/wardrobe.js'
+import { ButtonLink } from '../../components/Button/Button.jsx'
+import ClothingGrid, {
+  ClothingGridSkeleton,
+} from '../../components/ClothingGrid/ClothingGrid.jsx'
 import EmptyState from '../../components/EmptyState/EmptyState.jsx'
 import Icon from '../../components/Icon/Icon.jsx'
+import useAsyncData from '../../hooks/useAsyncData.js'
 import usePageTitle from '../../hooks/usePageTitle.js'
 import styles from './Dashboard.module.css'
 
 const quickActions = [
   {
-    to: '/wardrobe',
+    to: '/wardrobe/new',
     icon: 'hanger',
     title: 'Add a piece',
     text: 'Photograph something you own and give it a home.',
@@ -32,8 +38,12 @@ function getGreeting(hour) {
   return 'Good evening'
 }
 
+const RECENT_COUNT = 4
+
 export default function Dashboard() {
   usePageTitle('Home')
+  // listItems returns newest first, so the first few are the most recent.
+  const { data: items, error, isLoading } = useAsyncData(listItems)
 
   // React may render a component many times. Reading the clock directly
   // would give a different answer each render; a lazy useState initializer
@@ -79,12 +89,35 @@ export default function Dashboard() {
 
       <div className={styles.columns}>
         <section aria-labelledby="recent" className={styles.section}>
-          <h2 id="recent" className={styles.sectionTitle}>
-            Recently added
-          </h2>
-          <EmptyState icon="hanger" title="Your closet is waiting">
-            The pieces you add to your wardrobe will show up here.
-          </EmptyState>
+          <div className={styles.sectionHead}>
+            <h2 id="recent" className={styles.sectionTitle}>
+              Recently added
+            </h2>
+            {items?.length > 0 && (
+              <Link to="/wardrobe" className={styles.viewAll}>
+                View all {items.length}
+              </Link>
+            )}
+          </div>
+
+          {isLoading && <ClothingGridSkeleton count={4} />}
+          {error && (
+            <p className="muted" role="alert">
+              We couldn’t load your wardrobe: {error.message}
+            </p>
+          )}
+          {items?.length === 0 && (
+            <EmptyState
+              icon="hanger"
+              title="Your closet is waiting"
+              action={<ButtonLink to="/wardrobe/new">Add your first piece</ButtonLink>}
+            >
+              The pieces you add to your wardrobe will show up here.
+            </EmptyState>
+          )}
+          {items?.length > 0 && (
+            <ClothingGrid items={items.slice(0, RECENT_COUNT)} compact />
+          )}
         </section>
 
         <section aria-labelledby="upcoming" className={styles.section}>

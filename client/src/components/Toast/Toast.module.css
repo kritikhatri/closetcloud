@@ -1,0 +1,33 @@
+.region {
+  position: fixed;
+  left: 50%;
+  bottom: var(--space-6);
+  z-index: 50;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* Sit above the mobile tab bar. */
+@media (max-width: 899.98px) {
+  .region {
+    bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+}
+
+.toast {
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: #fff;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+  animation: rise var(--duration-base) var(--ease-out);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

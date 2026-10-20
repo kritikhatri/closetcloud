@@ -8,6 +8,9 @@ import RouteError from './pages/RouteError/RouteError.jsx'
 import Settings from './pages/Settings/Settings.jsx'
 import StyleGuide from './pages/StyleGuide/StyleGuide.jsx'
 import Wardrobe from './pages/Wardrobe/Wardrobe.jsx'
+import WardrobeItem from './pages/WardrobeItem/WardrobeItem.jsx'
+import WardrobeItemEdit from './pages/WardrobeItemEdit/WardrobeItemEdit.jsx'
+import WardrobeItemNew from './pages/WardrobeItemNew/WardrobeItemNew.jsx'
 
 /*
   The route map: which URL shows which page.
@@ -22,6 +25,11 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Dashboard /> },
       { path: 'wardrobe', element: <Wardrobe /> },
+      // "new" is listed before ":id" for readability; React Router ranks
+      // exact words above :params anyway, so /wardrobe/new never matches :id.
+      { path: 'wardrobe/new', element: <WardrobeItemNew /> },
+      { path: 'wardrobe/:id', element: <WardrobeItem /> },
+      { path: 'wardrobe/:id/edit', element: <WardrobeItemEdit /> },
       { path: 'outfits', element: <Outfits /> },
       { path: 'calendar', element: <Calendar /> },
       { path: 'inspiration', element: <Inspiration /> },

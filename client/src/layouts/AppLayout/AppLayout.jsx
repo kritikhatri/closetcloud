@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { NavLink, Outlet, ScrollRestoration, useLocation } from 'react-router'
 import Icon from '../../components/Icon/Icon.jsx'
 import Logo from '../../components/Logo/Logo.jsx'
+import ToastProvider from '../../components/Toast/ToastProvider.jsx'
 import { navItems } from './navItems.js'
 import styles from './AppLayout.module.css'
 
@@ -33,78 +34,82 @@ export default function AppLayout() {
     mainRef.current?.focus()
   }, [pathname])
 
+  // ToastProvider sits here, around every page, so a message shown just
+  // before navigating ("Added to your closet") survives the page change.
   return (
-    <div className={styles.shell}>
-      <a href="#main" className={styles.skipLink}>
-        Skip to content
-      </a>
+    <ToastProvider>
+      <div className={styles.shell}>
+        <a href="#main" className={styles.skipLink}>
+          Skip to content
+        </a>
 
-      {/* ---------- Desktop sidebar ---------- */}
-      <aside className={styles.sidebar}>
-        <div className={styles.sidebarLogo}>
+        {/* ---------- Desktop sidebar ---------- */}
+        <aside className={styles.sidebar}>
+          <div className={styles.sidebarLogo}>
+            <Logo />
+          </div>
+
+          <nav aria-label="Main" className={styles.sideNav}>
+            <ul>
+              {navItems.map((item) => (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    end={item.end}
+                    className={linkClass(styles.sideLink)}
+                  >
+                    <Icon name={item.icon} />
+                    {item.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <NavLink to="/settings" className={linkClass(styles.sideLink)}>
+            <Icon name="user" />
+            Settings
+          </NavLink>
+        </aside>
+
+        {/* ---------- Mobile top bar ---------- */}
+        <header className={styles.topbar}>
           <Logo />
-        </div>
+          <NavLink
+            to="/settings"
+            className={linkClass(styles.topbarSettings)}
+            aria-label="Settings"
+          >
+            <Icon name="user" />
+          </NavLink>
+        </header>
 
-        <nav aria-label="Main" className={styles.sideNav}>
+        <main id="main" ref={mainRef} tabIndex={-1} className={styles.main}>
+          <div className="container">
+            <Outlet />
+          </div>
+        </main>
+
+        {/* ---------- Mobile tab bar ---------- */}
+        <nav aria-label="Main" className={styles.tabbar}>
           <ul>
             {navItems.map((item) => (
               <li key={item.to}>
                 <NavLink
                   to={item.to}
                   end={item.end}
-                  className={linkClass(styles.sideLink)}
+                  className={linkClass(styles.tabLink)}
                 >
-                  <Icon name={item.icon} />
-                  {item.label}
+                  <Icon name={item.icon} size={22} />
+                  <span>{item.label}</span>
                 </NavLink>
               </li>
             ))}
           </ul>
         </nav>
 
-        <NavLink to="/settings" className={linkClass(styles.sideLink)}>
-          <Icon name="user" />
-          Settings
-        </NavLink>
-      </aside>
-
-      {/* ---------- Mobile top bar ---------- */}
-      <header className={styles.topbar}>
-        <Logo />
-        <NavLink
-          to="/settings"
-          className={linkClass(styles.topbarSettings)}
-          aria-label="Settings"
-        >
-          <Icon name="user" />
-        </NavLink>
-      </header>
-
-      <main id="main" ref={mainRef} tabIndex={-1} className={styles.main}>
-        <div className="container">
-          <Outlet />
-        </div>
-      </main>
-
-      {/* ---------- Mobile tab bar ---------- */}
-      <nav aria-label="Main" className={styles.tabbar}>
-        <ul>
-          {navItems.map((item) => (
-            <li key={item.to}>
-              <NavLink
-                to={item.to}
-                end={item.end}
-                className={linkClass(styles.tabLink)}
-              >
-                <Icon name={item.icon} size={22} />
-                <span>{item.label}</span>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <ScrollRestoration />
-    </div>
+        <ScrollRestoration />
+      </div>
+    </ToastProvider>
   )
 }

@@ -1,0 +1,66 @@
+/*
+  Masonry with CSS columns: the browser makes as many columns as fit
+  (each at least 200px wide) and flows cards down them, so photos keep
+  their natural height instead of being cropped into identical boxes.
+*/
+.grid {
+  list-style: none;
+  padding: 0;
+  column-width: 200px;
+  column-gap: var(--space-5);
+}
+
+.compact {
+  column-width: 160px;
+}
+
+.cell {
+  break-inside: avoid; /* never split a card across two columns */
+  margin-bottom: var(--space-6);
+}
+
+@media (max-width: 599.98px) {
+  .grid {
+    column-width: 140px;
+    column-gap: var(--space-3);
+  }
+  .cell {
+    margin-bottom: var(--space-5);
+  }
+}
+
+/* ---------- Loading skeleton ---------- */
+
+.skeletonImage,
+.skeletonLine {
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    90deg,
+    var(--color-blush-soft) 0%,
+    var(--color-surface) 50%,
+    var(--color-blush-soft) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.skeletonLine {
+  height: 12px;
+  margin-top: var(--space-3);
+  border-radius: var(--radius-pill);
+  width: 70%;
+}
+
+.short {
+  width: 45%;
+  margin-top: var(--space-2);
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
