@@ -1,0 +1,68 @@
+.wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  height: 100%;
+  overflow: hidden;
+  /* Fade the photos out at the top and bottom edges instead of a hard cut. */
+  mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+}
+
+/* Offset the middle column so the rows don't line up — feels more organic. */
+.column:nth-child(2) {
+  margin-top: -6rem;
+}
+
+.track {
+  display: grid;
+  gap: var(--space-4);
+  animation: drift var(--duration) linear infinite;
+}
+
+.reverse {
+  animation-direction: reverse;
+}
+
+/* Hovering pauses the wall so people can actually look at an outfit. */
+.wall:hover .track {
+  animation-play-state: paused;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  background: var(--color-blush-soft);
+  box-shadow: var(--shadow-md);
+}
+
+@keyframes drift {
+  to {
+    /* Half the track = one full copy of the photos (minus half a gap,
+       so the seam lines up exactly). */
+    transform: translateY(calc(-50% - var(--space-4) / 2));
+  }
+}
+
+/* Phones: two columns are plenty. */
+@media (max-width: 599.98px) {
+  .wall {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .column:nth-child(3) {
+    display: none;
+  }
+
+  .track {
+    gap: var(--space-3);
+  }
+}
+
+/* Motion-sensitive users get a still collage instead of moving columns. */
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
