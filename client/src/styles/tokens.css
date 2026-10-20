@@ -1,0 +1,84 @@
+/*
+  ClosetCloud design tokens
+  -------------------------
+  Every colour, font, size and shadow in the app comes from this file.
+  Components never hard-code values like "#A8566B" or "24px" — they use
+  var(--token-name). Changing the look of the whole app = editing this file.
+
+  Contrast (WCAG AA needs 4.5:1 for body text, 3:1 for borders/icons):
+    ink on ivory ........ 14.1   ink-soft on ivory ... 5.3
+    rose on ivory ....... 4.7    white on rose ....... 5.0
+    rose-deep on blush .. 5.3    border-strong on white 3.5
+  On blush backgrounds use --color-ink or --color-rose-deep for text,
+  never --color-ink-soft or --color-rose (they drop below 4.5:1).
+*/
+
+:root {
+  /* ---------- Colour ---------- */
+  --color-ivory: #fbf7f2;        /* page background */
+  --color-surface: #ffffff;      /* cards, inputs, modals */
+  --color-blush: #f3dedc;        /* soft fills, selected states */
+  --color-blush-soft: #f8ecea;   /* hover fills, subtle sections */
+  --color-rose: #a8566b;         /* primary accent: buttons, links */
+  --color-rose-deep: #8e4358;    /* hover/pressed, text on blush */
+  --color-ink: #2b2526;          /* main text */
+  --color-ink-soft: #6f6466;     /* secondary text, captions */
+  --color-line: #e8deda;         /* decorative dividers, card borders */
+  --color-border-strong: #968687;/* form-control borders (meets 3:1) */
+  --color-success: #3f6b4f;
+  --color-danger: #a63d3d;
+  --color-danger-soft: #f6e3e1;
+
+  /* ---------- Typography ---------- */
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Type scale. clamp(min, preferred, max) makes big headings shrink
+     smoothly on small screens without media queries. */
+  --text-xs: 0.75rem;     /* 12px – badges, tiny labels */
+  --text-sm: 0.875rem;    /* 14px – captions, meta */
+  --text-base: 1rem;      /* 16px – body */
+  --text-lg: 1.125rem;    /* 18px – lead paragraphs */
+  --text-xl: 1.5rem;      /* 24px – card titles (display font) */
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);   /* section headings */
+  --text-3xl: clamp(2.25rem, 1.6rem + 3vw, 3.75rem);    /* page headings */
+  --text-4xl: clamp(2.75rem, 1.8rem + 4.5vw, 5rem);     /* hero */
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-normal: 1.6;
+  --tracking-wide: 0.14em; /* for small uppercase "eyebrow" labels */
+
+  /* ---------- Spacing (4px base) ---------- */
+  --space-1: 0.25rem;  /* 4  */
+  --space-2: 0.5rem;   /* 8  */
+  --space-3: 0.75rem;  /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.5rem;   /* 24 */
+  --space-6: 2rem;     /* 32 */
+  --space-7: 3rem;     /* 48 */
+  --space-8: 4rem;     /* 64 */
+  --space-9: 6rem;     /* 96 */
+
+  /* ---------- Shape ---------- */
+  --radius-sm: 8px;    /* inputs, small chips */
+  --radius-md: 14px;   /* cards */
+  --radius-lg: 20px;   /* image tiles, modals */
+  --radius-pill: 999px;
+
+  /* ---------- Elevation ---------- */
+  /* Warm-tinted shadows (based on ink, not pure black) look softer. */
+  --shadow-sm: 0 1px 2px rgb(43 37 38 / 0.05);
+  --shadow-md: 0 4px 14px -4px rgb(43 37 38 / 0.10), 0 1px 3px rgb(43 37 38 / 0.04);
+  --shadow-lg: 0 18px 40px -12px rgb(43 37 38 / 0.18);
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+
+  /* ---------- Layout ---------- */
+  --container-max: 1200px;
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --focus-ring: 0 0 0 3px var(--color-ivory), 0 0 0 5px var(--color-rose-deep);
+}

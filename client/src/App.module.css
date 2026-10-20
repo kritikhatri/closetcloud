@@ -1,0 +1,107 @@
+/* Styles for the temporary style-guide page. */
+
+.hero {
+  padding-block: var(--space-9) var(--space-8);
+  max-width: 46rem;
+}
+
+.heroTitle {
+  font-size: var(--text-4xl);
+  margin-block: var(--space-3) var(--space-5);
+}
+
+.heroTitle em {
+  color: var(--color-rose);
+}
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--color-ink-soft);
+  max-width: 34rem;
+  margin-bottom: var(--space-6);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.section {
+  padding-block: var(--space-7);
+  border-top: 1px solid var(--color-line);
+  display: grid;
+  gap: var(--space-5);
+}
+
+.swatches {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: var(--space-5);
+}
+
+.swatch {
+  display: grid;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.chip {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-line);
+  margin-bottom: var(--space-2);
+}
+
+.swatchName {
+  font-weight: 500;
+}
+
+.typeStack {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 40rem;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-style: italic;
+  line-height: var(--leading-tight);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-5);
+}
+
+.card {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.cardBlush {
+  background: var(--color-blush);
+  border-color: transparent;
+}
+
+.eyebrowDeep {
+  color: var(--color-rose-deep);
+}
