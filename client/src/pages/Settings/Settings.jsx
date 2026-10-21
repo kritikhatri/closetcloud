@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import Avatar from '../../components/Avatar/Avatar.jsx'
-import Button, { ButtonLink } from '../../components/Button/Button.jsx'
+import Button from '../../components/Button/Button.jsx'
 import Icon from '../../components/Icon/Icon.jsx'
 import { labelFor } from '../../constants/wardrobe.js'
 import { AESTHETICS } from '../../data/inspiration.js'
 import PageHeader from '../../components/PageHeader/PageHeader.jsx'
 import useAuth from '../../hooks/useAuth.js'
+import useQuiz from '../../hooks/useQuiz.js'
 import usePageTitle from '../../hooks/usePageTitle.js'
 import styles from './Settings.module.css'
 
 export default function Settings() {
   usePageTitle('Settings')
   const { user, logOut } = useAuth()
+  const { openQuiz } = useQuiz()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [error, setError] = useState('')
 
@@ -84,9 +86,9 @@ export default function Settings() {
               these.
             </p>
             <div>
-              <ButtonLink to="/quiz" variant="secondary">
+              <Button variant="secondary" onClick={openQuiz}>
                 Retake the quiz
-              </ButtonLink>
+              </Button>
             </div>
           </>
         ) : (
@@ -96,10 +98,10 @@ export default function Settings() {
               inspiration.
             </p>
             <div>
-              <ButtonLink to="/quiz">
+              <Button onClick={openQuiz}>
                 <Icon name="sparkle" size={18} />
                 Find your aesthetic
-              </ButtonLink>
+              </Button>
             </div>
           </>
         )}

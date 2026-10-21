@@ -13,6 +13,7 @@ import { labelFor } from '../../constants/wardrobe.js'
 import { AESTHETICS, dailyLooks, getLooks, lookImageUrl } from '../../data/inspiration.js'
 import useAsyncData from '../../hooks/useAsyncData.js'
 import useAuth from '../../hooks/useAuth.js'
+import useQuiz from '../../hooks/useQuiz.js'
 import usePageTitle from '../../hooks/usePageTitle.js'
 import styles from './Dashboard.module.css'
 
@@ -51,6 +52,7 @@ function getGreeting(hour) {
 export default function Dashboard() {
   usePageTitle('Home')
   const { user } = useAuth()
+  const { openQuiz } = useQuiz()
   const firstName = user.name.split(' ')[0]
   // listItems returns newest first, so the first few are the most recent.
   const { data: items, error, isLoading } = useAsyncData(listItems)
@@ -91,15 +93,19 @@ export default function Dashboard() {
             </p>
           )}
           {styleLabels.length > 0 ? (
-            <Link to="/quiz" className={styles.stylePill}>
+            <button type="button" className={styles.stylePill} onClick={openQuiz}>
               <Icon name="heart" size={16} fill="currentColor" />
               Your style: {styleLabels.join(' · ')}
-            </Link>
+            </button>
           ) : (
-            <Link to="/quiz" className={`${styles.stylePill} ${styles.stylePrompt}`}>
+            <button
+              type="button"
+              className={`${styles.stylePill} ${styles.stylePrompt}`}
+              onClick={openQuiz}
+            >
               <Icon name="sparkle" size={16} />
               Find your aesthetic: take the 1-minute quiz
-            </Link>
+            </button>
           )}
         </div>
         <div className={styles.welcomePhotos}>

@@ -1,5 +1,5 @@
-import Button from '../../components/Button/Button.jsx'
-import PhotoStack from '../../components/PhotoStack/PhotoStack.jsx'
+import Button from '../Button/Button.jsx'
+import PhotoStack from '../PhotoStack/PhotoStack.jsx'
 import { labelFor } from '../../constants/wardrobe.js'
 import { AESTHETICS, getLooks } from '../../data/inspiration.js'
 import { PER_ROUND, ROUNDS } from '../../utils/quiz.js'

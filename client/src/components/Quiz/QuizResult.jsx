@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router'
-import Button, { ButtonLink } from '../../components/Button/Button.jsx'
-import Icon from '../../components/Icon/Icon.jsx'
-import PhotoStack from '../../components/PhotoStack/PhotoStack.jsx'
+import { Link, useLocation } from 'react-router'
+import Button, { ButtonLink } from '../Button/Button.jsx'
+import Icon from '../Icon/Icon.jsx'
+import PhotoStack from '../PhotoStack/PhotoStack.jsx'
 import { AESTHETICS, LOOKS, getLooks } from '../../data/inspiration.js'
 import useAuth from '../../hooks/useAuth.js'
 import styles from './Quiz.module.css'
@@ -21,6 +21,10 @@ function resultLooks(topValue, pickedIds) {
 
 export default function QuizResult({ result, onRetake, onSaved }) {
   const { user, updateProfile } = useAuth()
+  const { pathname } = useLocation()
+  // After signing up / logging in, come back to this same page with the
+  // quiz reopened (QuizProvider watches for ?quiz=open).
+  const returnHere = encodeURIComponent(`${pathname}?quiz=open`)
   const headingRef = useRef(null)
   const [saveState, setSaveState] = useState('idle') // idle | saving | saved | error
   const [saveError, setSaveError] = useState('')
@@ -114,7 +118,9 @@ export default function QuizResult({ result, onRetake, onSaved }) {
             </Button>
           )
         ) : (
-          <ButtonLink to="/signup?next=%2Fquiz">Sign up to save your style</ButtonLink>
+          <ButtonLink to={`/signup?next=${returnHere}`}>
+            Sign up to save your style
+          </ButtonLink>
         )}
         <ButtonLink to={boardLink} variant="secondary">
           See the {topAesthetic.label.toLowerCase()} board
@@ -131,13 +137,18 @@ export default function QuizResult({ result, onRetake, onSaved }) {
       )}
       {!user && (
         <p className={styles.loginNote}>
-          Already have an account? <Link to="/login?next=%2Fquiz">Log in to save it</Link>
+          Already have an account?{' '}
+          <Link to={`/login?next=${returnHere}`}>
+            Log in to save it
+          </Link>
         </p>
       )}
       {user && (alreadySaved || saveState === 'saved') && (
         <p className={styles.loginNote}>
           Your dashboard’s inspiration now leans {topAesthetic.label.toLowerCase()}.{' '}
-          <Link to="/home">Go to my closet</Link>
+          <Link to="/home">
+            Go to my closet
+          </Link>
         </p>
       )}
     </section>

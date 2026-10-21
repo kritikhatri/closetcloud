@@ -197,6 +197,7 @@
 }
 
 .quizChip {
+  border: 0; /* it's a <button> now, so drop the browser's default border */
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -218,6 +219,9 @@
 /* ---------- Quiz banner above the aesthetic boards ---------- */
 
 .quizBanner {
+  width: 100%;
+  border: 0;
+  text-align: left;
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;

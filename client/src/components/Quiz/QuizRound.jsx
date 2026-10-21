@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
-import Button from '../../components/Button/Button.jsx'
-import Icon from '../../components/Icon/Icon.jsx'
+import Button from '../Button/Button.jsx'
+import Icon from '../Icon/Icon.jsx'
 import { lookImageUrl } from '../../data/inspiration.js'
 import styles from './Quiz.module.css'
 

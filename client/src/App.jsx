@@ -1,6 +1,7 @@
-import { createBrowserRouter, RouterProvider } from 'react-router'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router'
 import AuthProvider from './components/Auth/AuthProvider.jsx'
 import RequireAuth from './components/Auth/RequireAuth.jsx'
+import useAuth from './hooks/useAuth.js'
 import AppLayout from './layouts/AppLayout/AppLayout.jsx'
 import RootLayout from './layouts/RootLayout.jsx'
 import Calendar from './pages/Calendar/Calendar.jsx'
@@ -9,7 +10,6 @@ import Inspiration from './pages/Inspiration/Inspiration.jsx'
 import Landing from './pages/Landing/Landing.jsx'
 import Login from './pages/Login/Login.jsx'
 import Outfits from './pages/Outfits/Outfits.jsx'
-import Quiz from './pages/Quiz/Quiz.jsx'
 import RouteError from './pages/RouteError/RouteError.jsx'
 import Settings from './pages/Settings/Settings.jsx'
 import Signup from './pages/Signup/Signup.jsx'
@@ -29,6 +29,13 @@ import WardrobeItemNew from './pages/WardrobeItemNew/WardrobeItemNew.jsx'
         RequireAuth – sends logged-out visitors to /login
         AppLayout   – the sidebar/tab bar around each page
 */
+/* /quiz → your dashboard (or the front page) with the quiz pop-up open. */
+function QuizRedirect() {
+  const { user, status } = useAuth()
+  if (status === 'loading') return null
+  return <Navigate to={user ? '/home?quiz=open' : '/?quiz=open'} replace />
+}
+
 const appPages = [
   { path: 'home', element: <Dashboard /> },
   { path: 'wardrobe', element: <Wardrobe /> },
@@ -54,8 +61,8 @@ const router = createBrowserRouter([
       { path: '/', element: <Landing /> },
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <Signup /> },
-      // Public, so visitors can try it before signing up.
-      { path: 'quiz', element: <Quiz /> },
+      // The quiz is a pop-up now; old /quiz links open it on a real page.
+      { path: 'quiz', element: <QuizRedirect /> },
       {
         element: <RequireAuth />,
         children: [{ element: <AppLayout />, children: appPages }],

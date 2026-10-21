@@ -5,6 +5,7 @@ import Icon from '../../components/Icon/Icon.jsx'
 import Logo from '../../components/Logo/Logo.jsx'
 import { AESTHETICS, LOOKS, UNSPLASH_URL, lookImageUrl } from '../../data/inspiration.js'
 import useAuth from '../../hooks/useAuth.js'
+import useQuiz from '../../hooks/useQuiz.js'
 import usePageTitle from '../../hooks/usePageTitle.js'
 import HeroWall from '../../components/HeroWall/HeroWall.jsx'
 import styles from './Landing.module.css'
@@ -70,6 +71,7 @@ export default function Landing() {
   usePageTitle(null) // just "ClosetCloud"
   const [, setSearchParams] = useSearchParams()
   const { user } = useAuth()
+  const { openQuiz } = useQuiz()
 
   // Filters the mood board to one aesthetic and scrolls down to it.
   function openBoard(aesthetic) {
@@ -156,10 +158,10 @@ export default function Landing() {
                     {aesthetic.label}
                   </button>
                 ))}
-                <Link to="/quiz" className={styles.quizChip}>
+                <button type="button" className={styles.quizChip} onClick={openQuiz}>
                   <Icon name="sparkle" size={16} />
                   Not sure? Take the quiz
-                </Link>
+                </button>
               </div>
             </div>
 
@@ -192,7 +194,7 @@ export default function Landing() {
             <p className="muted">Tap a board to see every look in that style.</p>
           </div>
 
-          <Link to="/quiz" className={styles.quizBanner}>
+          <button type="button" className={styles.quizBanner} onClick={openQuiz}>
             <span className={styles.quizBannerIcon} aria-hidden="true">
               <Icon name="heart" size={22} fill="currentColor" />
             </span>
@@ -203,7 +205,7 @@ export default function Landing() {
             <span className={styles.quizBannerCta}>
               Take the style quiz <Icon name="arrowRight" size={18} />
             </span>
-          </Link>
+          </button>
 
           <ul className={styles.boards}>
             {AESTHETICS.map((aesthetic) => {

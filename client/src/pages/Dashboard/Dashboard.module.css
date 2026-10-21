@@ -53,6 +53,7 @@
 
 /* Saved style (or an invitation to the quiz), under the closet count. */
 .stylePill {
+  border: 0; /* a <button>: drop the browser's default border */
   display: flex;
   align-items: center;
   gap: var(--space-2);
