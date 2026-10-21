@@ -1,0 +1,13 @@
+{
+  "name": "closetcloud",
+  "private": true,
+  "description": "ClosetCloud: digital wardrobe and outfit planner (React client + Express API)",
+  "scripts": {
+    "dev": "concurrently --names api,web --prefix-colors magenta,cyan --kill-others-on-fail \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "test": "npm test --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "10.0.6"
+  }
+}

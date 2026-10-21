@@ -40,16 +40,21 @@ cp .env.example .env              # then edit DATABASE_URL for your machine
 cp .env.test.example .env.test    # same, pointing at closetcloud_test
 npm install                       # also generates the Prisma client
 npm run db:migrate                # creates the tables
-npm run dev                       # http://localhost:4000
+npm run dev                       # optional: API only, http://localhost:4000
 ```
 
-### 3. React app (in a second terminal)
+### 3. Start everything
+
+From the main `closetcloud` folder, one command starts **both** the API and the website:
 
 ```bash
-cd client
-npm install
-npm run dev                       # http://localhost:5180
+npm install          # first time only (installs the tool that runs both)
+npm run dev          # API on :4000 + website on :5180
 ```
+
+Open http://localhost:5180. Both servers must be running: if the API is off, sign-up and login show "The ClosetCloud API isn't running".
+
+(You can also run them separately: `npm run dev` inside `server/` and inside `client/`, in two terminals.)
 
 ## API
 

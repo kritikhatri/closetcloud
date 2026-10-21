@@ -28,6 +28,19 @@ export function onUnauthorized(callback) {
   handleUnauthorized = callback
 }
 
+/*
+  Message for errors that didn't come from our API (so there's no JSON
+  error body). In development, a 502/504 means Vite's proxy couldn't reach
+  the Express server, almost always because it isn't running, so say so.
+*/
+function fallbackMessage(status) {
+  if (import.meta.env.DEV && (status === 502 || status === 504)) {
+    return 'The ClosetCloud API isn’t running. Start it with `npm run dev` in the closetcloud folder (or `npm run dev` inside server/).'
+  }
+  if (status >= 500) return 'ClosetCloud’s server isn’t responding. Please try again in a moment.'
+  return `Request failed (${status}).`
+}
+
 export async function apiFetch(path, { method = 'GET', body } = {}) {
   let response
   try {
@@ -48,10 +61,7 @@ export async function apiFetch(path, { method = 'GET', body } = {}) {
   if (!response.ok) {
     if (response.status === 401) handleUnauthorized?.()
     const message =
-      data?.error?.message ??
-      (response.status >= 500
-        ? 'ClosetCloud’s server isn’t responding. Please try again in a moment.'
-        : `Request failed (${response.status}).`)
+      data?.error?.message ?? fallbackMessage(response.status)
     throw new ApiError(message, response.status, data?.error?.fields)
   }
 
