@@ -25,6 +25,10 @@ model User {
   name         String
   // Never the password itself, only a salted scrypt hash of it.
   passwordHash String
+  // Up to three aesthetic slugs from the style quiz, best match first,
+  // e.g. ["coquette", "old-money"]. PostgreSQL stores this as a text[]
+  // array column. Empty until the quiz has been saved.
+  styleAesthetics String[] @default([])
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 

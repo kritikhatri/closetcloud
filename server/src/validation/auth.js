@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { AESTHETIC_VALUES } from '../constants/aesthetics.js'
 
 /*
   Rules for sign-up and login data. The server checks these on every
@@ -13,12 +14,14 @@ const email = z
   .max(254, { error: 'That email address is too long.' })
   .pipe(z.email({ error: 'Enter a valid email address.' }))
 
+const name = z
+  .string({ error: 'Enter your name.' })
+  .trim()
+  .min(1, { error: 'Enter your name.' })
+  .max(60, { error: 'Keep your name under 60 characters.' })
+
 export const signupSchema = z.object({
-  name: z
-    .string({ error: 'Enter your name.' })
-    .trim()
-    .min(1, { error: 'Enter your name.' })
-    .max(60, { error: 'Keep your name under 60 characters.' }),
+  name,
   email,
   password: z
     .string({ error: 'Choose a password.' })
@@ -27,6 +30,25 @@ export const signupSchema = z.object({
     // server spend ages hashing it.
     .max(128, { error: 'Keep your password under 128 characters.' }),
 })
+
+/*
+  PATCH /api/auth/me — change your own profile. Every field is optional,
+  but at least one must be sent. .strict() rejects unknown fields, so
+  nobody can sneak in e.g. { "email": ... } or { "passwordHash": ... }.
+*/
+export const profileSchema = z
+  .object({
+    name: name.optional(),
+    styleAesthetics: z
+      .array(z.enum(AESTHETIC_VALUES, { error: 'Unknown aesthetic.' }))
+      .max(3, { error: 'Save up to three aesthetics.' })
+      .refine((list) => new Set(list).size === list.length, {
+        error: 'Each aesthetic can only appear once.',
+      })
+      .optional(),
+  })
+  .strict()
+  .refine((data) => Object.keys(data).length > 0, { error: 'Nothing to update.' })
 
 export const loginSchema = z.object({
   email,

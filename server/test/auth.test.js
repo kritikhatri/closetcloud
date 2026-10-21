@@ -174,6 +174,73 @@ describe('sessions', () => {
   })
 })
 
+describe('profile updates (PATCH /api/auth/me)', () => {
+  test('saves style-quiz aesthetics and returns them on /me', async () => {
+    const { cookie, body } = await api('/api/auth/signup', { method: 'POST', body: alice })
+    assert.deepEqual(body.user.styleAesthetics, []) // empty until the quiz is saved
+
+    const res = await api('/api/auth/me', {
+      method: 'PATCH',
+      cookie,
+      body: { styleAesthetics: ['coquette', 'old-money'] },
+    })
+    assert.equal(res.status, 200)
+    assert.deepEqual(res.body.user.styleAesthetics, ['coquette', 'old-money'])
+
+    const me = await api('/api/auth/me', { cookie })
+    assert.deepEqual(me.body.user.styleAesthetics, ['coquette', 'old-money'])
+  })
+
+  test('rejects unknown aesthetics, duplicates and more than three', async () => {
+    const { cookie } = await api('/api/auth/signup', { method: 'POST', body: alice })
+    for (const styleAesthetics of [
+      ['goth-punk'],
+      ['minimal', 'minimal'],
+      ['coquette', 'minimal', 'formal', 'casual'],
+    ]) {
+      const res = await api('/api/auth/me', { method: 'PATCH', cookie, body: { styleAesthetics } })
+      assert.equal(res.status, 400, `expected 400 for ${JSON.stringify(styleAesthetics)}`)
+    }
+  })
+
+  test('refuses fields that are not allowed, like email or passwordHash', async () => {
+    const { cookie } = await api('/api/auth/signup', { method: 'POST', body: alice })
+    const res = await api('/api/auth/me', {
+      method: 'PATCH',
+      cookie,
+      body: { passwordHash: 'hacked', email: 'new@example.com' },
+    })
+    assert.equal(res.status, 400)
+    const row = await prisma.user.findUnique({ where: { email: 'alice@example.com' } })
+    assert.match(row.passwordHash, /^scrypt\$/)
+  })
+
+  test('only ever changes your own account', async () => {
+    const first = await api('/api/auth/signup', { method: 'POST', body: alice })
+    await api('/api/auth/signup', {
+      method: 'POST',
+      body: { name: 'Bob', email: 'bob@example.com', password: 'another long one' },
+    })
+
+    await api('/api/auth/me', {
+      method: 'PATCH',
+      cookie: first.cookie,
+      body: { name: 'Alice Renamed', id: 'whatever' }, // an id in the body is rejected
+    })
+    await api('/api/auth/me', { method: 'PATCH', cookie: first.cookie, body: { name: 'Alice Renamed' } })
+
+    const bob = await prisma.user.findUnique({ where: { email: 'bob@example.com' } })
+    assert.equal(bob.name, 'Bob')
+    const aliceRow = await prisma.user.findUnique({ where: { email: 'alice@example.com' } })
+    assert.equal(aliceRow.name, 'Alice Renamed')
+  })
+
+  test('requires a logged-in user', async () => {
+    const res = await api('/api/auth/me', { method: 'PATCH', body: { name: 'Nobody' } })
+    assert.equal(res.status, 401)
+  })
+})
+
 describe('request safety', () => {
   test('blocks data-changing requests from other websites', async () => {
     const res = await api('/api/auth/signup', {

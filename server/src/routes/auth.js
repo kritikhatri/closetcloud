@@ -13,7 +13,7 @@ import {
 import { requireAuth } from '../middleware/auth.js'
 import { HttpError } from '../utils/HttpError.js'
 import { validate } from '../utils/validate.js'
-import { loginSchema, signupSchema } from '../validation/auth.js'
+import { loginSchema, profileSchema, signupSchema } from '../validation/auth.js'
 
 export const authRouter = Router()
 
@@ -91,4 +91,18 @@ authRouter.post('/logout', async (req, res) => {
 /* GET /api/auth/me → 200 { user } if logged in, otherwise 401 */
 authRouter.get('/me', requireAuth, (req, res) => {
   res.json({ user: req.user })
+})
+
+/* PATCH /api/auth/me  { name?, styleAesthetics? } → 200 { user } */
+authRouter.patch('/me', requireAuth, async (req, res) => {
+  const changes = validate(profileSchema, req.body)
+
+  // The id comes from the session, never from the request body or URL,
+  // so you can only ever update your own account.
+  const user = await prisma.user.update({
+    where: { id: req.user.id },
+    data: changes,
+    select: publicUserFields,
+  })
+  res.json({ user })
 })

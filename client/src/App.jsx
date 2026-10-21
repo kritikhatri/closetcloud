@@ -9,6 +9,7 @@ import Inspiration from './pages/Inspiration/Inspiration.jsx'
 import Landing from './pages/Landing/Landing.jsx'
 import Login from './pages/Login/Login.jsx'
 import Outfits from './pages/Outfits/Outfits.jsx'
+import Quiz from './pages/Quiz/Quiz.jsx'
 import RouteError from './pages/RouteError/RouteError.jsx'
 import Settings from './pages/Settings/Settings.jsx'
 import Signup from './pages/Signup/Signup.jsx'
@@ -22,7 +23,7 @@ import WardrobeItemNew from './pages/WardrobeItemNew/WardrobeItemNew.jsx'
   The route map: which URL shows which page.
 
   RootLayout wraps everything. Inside it:
-    • "/", "/login" and "/signup" are public (no sidebar)
+    • "/", "/login", "/signup" and "/quiz" are public (no sidebar)
     • every other page is wrapped twice, using "layout routes" (routes with
       no path of their own that render an <Outlet /> for their children):
         RequireAuth – sends logged-out visitors to /login
@@ -53,6 +54,8 @@ const router = createBrowserRouter([
       { path: '/', element: <Landing /> },
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <Signup /> },
+      // Public, so visitors can try it before signing up.
+      { path: 'quiz', element: <Quiz /> },
       {
         element: <RequireAuth />,
         children: [{ element: <AppLayout />, children: appPages }],

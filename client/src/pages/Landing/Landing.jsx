@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from 'react-router'
 import { ButtonLink } from '../../components/Button/Button.jsx'
 import LookBoard from '../../components/LookBoard/LookBoard.jsx'
+import Icon from '../../components/Icon/Icon.jsx'
 import Logo from '../../components/Logo/Logo.jsx'
 import { AESTHETICS, LOOKS, UNSPLASH_URL, lookImageUrl } from '../../data/inspiration.js'
 import useAuth from '../../hooks/useAuth.js'
@@ -155,6 +156,10 @@ export default function Landing() {
                     {aesthetic.label}
                   </button>
                 ))}
+                <Link to="/quiz" className={styles.quizChip}>
+                  <Icon name="sparkle" size={16} />
+                  Not sure? Take the quiz
+                </Link>
               </div>
             </div>
 
@@ -186,6 +191,19 @@ export default function Landing() {
             </h2>
             <p className="muted">Tap a board to see every look in that style.</p>
           </div>
+
+          <Link to="/quiz" className={styles.quizBanner}>
+            <span className={styles.quizBannerIcon} aria-hidden="true">
+              <Icon name="heart" size={22} fill="currentColor" />
+            </span>
+            <span className={styles.quizBannerText}>
+              <span className={styles.quizBannerTitle}>Not sure which one is you?</span>
+              <span>Heart the outfits you love in 5 quick rounds and see your match.</span>
+            </span>
+            <span className={styles.quizBannerCta}>
+              Take the style quiz <Icon name="arrowRight" size={18} />
+            </span>
+          </Link>
 
           <ul className={styles.boards}>
             {AESTHETICS.map((aesthetic) => {

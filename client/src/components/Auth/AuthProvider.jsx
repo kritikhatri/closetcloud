@@ -67,6 +67,15 @@ export default function AuthProvider({ children }) {
     applyUser(null, { loggedOut: true })
   }, [applyUser])
 
+  const updateProfile = useCallback(
+    async (changes) => {
+      const user = await authApi.updateProfile(changes)
+      applyUser(user)
+      return user
+    },
+    [applyUser],
+  )
+
   const retry = useCallback(() => {
     setState({ status: 'loading', user: null, error: null, loggedOut: false })
     checkSession()
@@ -75,8 +84,8 @@ export default function AuthProvider({ children }) {
   // useMemo: only hand out a new object when something actually changed,
   // so components using useAuth() don't re-render for no reason.
   const value = useMemo(
-    () => ({ ...state, logIn, signUp, logOut, retry }),
-    [state, logIn, signUp, logOut, retry],
+    () => ({ ...state, logIn, signUp, logOut, updateProfile, retry }),
+    [state, logIn, signUp, logOut, updateProfile, retry],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

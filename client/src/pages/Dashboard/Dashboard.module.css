@@ -51,6 +51,32 @@
   color: var(--color-rose-deep);
 }
 
+/* Saved style (or an invitation to the quiz), under the closet count. */
+.stylePill {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: fit-content;
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-rose-deep);
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.stylePill:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.stylePrompt {
+  background: var(--color-ink);
+}
+
 /* ---------- Sections ---------- */
 
 .section {

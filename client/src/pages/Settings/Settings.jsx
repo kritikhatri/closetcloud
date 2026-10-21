@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import Avatar from '../../components/Avatar/Avatar.jsx'
-import Button from '../../components/Button/Button.jsx'
+import Button, { ButtonLink } from '../../components/Button/Button.jsx'
+import Icon from '../../components/Icon/Icon.jsx'
+import { labelFor } from '../../constants/wardrobe.js'
+import { AESTHETICS } from '../../data/inspiration.js'
 import PageHeader from '../../components/PageHeader/PageHeader.jsx'
 import useAuth from '../../hooks/useAuth.js'
 import usePageTitle from '../../hooks/usePageTitle.js'
@@ -60,6 +63,46 @@ export default function Settings() {
             <dd>{user.email}</dd>
           </div>
         </dl>
+      </section>
+
+      <section className={styles.card} aria-labelledby="style-heading">
+        <h2 id="style-heading" className={styles.cardTitle}>
+          Your style
+        </h2>
+        {user.styleAesthetics.length > 0 ? (
+          <>
+            <ul className={styles.styleChips}>
+              {user.styleAesthetics.map((value, index) => (
+                <li key={value} className={styles.styleChip}>
+                  {index === 0 && <Icon name="heart" size={14} fill="currentColor" />}
+                  {labelFor(AESTHETICS, value)}
+                </li>
+              ))}
+            </ul>
+            <p className="muted">
+              From your style quiz, best match first. Your dashboard inspiration is picked from
+              these.
+            </p>
+            <div>
+              <ButtonLink to="/quiz" variant="secondary">
+                Retake the quiz
+              </ButtonLink>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="muted">
+              Take the 1-minute style quiz to discover your aesthetic and personalise your
+              inspiration.
+            </p>
+            <div>
+              <ButtonLink to="/quiz">
+                <Icon name="sparkle" size={18} />
+                Find your aesthetic
+              </ButtonLink>
+            </div>
+          </>
+        )}
       </section>
 
       <section className={styles.card} aria-labelledby="session-heading">

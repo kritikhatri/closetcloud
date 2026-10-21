@@ -88,5 +88,6 @@ export const publicUserFields = {
   id: true,
   email: true,
   name: true,
+  styleAesthetics: true,
   createdAt: true,
 }

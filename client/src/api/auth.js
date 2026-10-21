@@ -22,6 +22,12 @@ export async function logOut() {
   await apiFetch('/auth/logout', { method: 'POST' })
 }
 
+/* Change your own profile: { name?, styleAesthetics? } → the updated user */
+export async function updateProfile(changes) {
+  const { user } = await apiFetch('/auth/me', { method: 'PATCH', body: changes })
+  return user
+}
+
 /* The logged-in user, or null if nobody is logged in. */
 export async function getCurrentUser() {
   try {

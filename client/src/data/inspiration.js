@@ -16,16 +16,17 @@
   Every image URL and photo-page link was checked when this list was made.
 */
 
+// The `value`s must match server/src/constants/aesthetics.js.
 export const AESTHETICS = [
-  { value: 'coquette', label: 'Coquette' },
-  { value: 'cottagecore', label: 'Cottagecore' },
-  { value: 'old-money', label: 'Old money' },
-  { value: 'minimal', label: 'Minimal' },
-  { value: 'streetwear', label: 'Streetwear' },
-  { value: 'college', label: 'College' },
-  { value: 'casual', label: 'Casual' },
-  { value: 'date-night', label: 'Date night' },
-  { value: 'formal', label: 'Formal' },
+  { value: 'coquette', label: 'Coquette', description: 'Bows, blush tones, ballet flats and a little romance in every detail.' },
+  { value: 'cottagecore', label: 'Cottagecore', description: 'Floral midis, soft fabrics and the feeling of a slow summer afternoon.' },
+  { value: 'old-money', label: 'Old money', description: 'Camel coats, crisp tailoring and quiet, timeless neutrals.' },
+  { value: 'minimal', label: 'Minimal', description: 'Clean lines, a calm palette and pieces that do a lot with very little.' },
+  { value: 'streetwear', label: 'Streetwear', description: 'Statement sneakers, easy layers and confident, relaxed shapes.' },
+  { value: 'college', label: 'College', description: 'Denim, knits and practical favourites that still look put-together.' },
+  { value: 'casual', label: 'Casual', description: 'Comfortable, effortless pieces for everyday life, rain or shine.' },
+  { value: 'date-night', label: 'Date night', description: 'A little leather, a little shine, and something that feels special.' },
+  { value: 'formal', label: 'Formal', description: 'Gowns, satin and sequins for the nights that deserve them.' },
 ]
 
 export const LOOKS = [
@@ -163,9 +164,14 @@ export function getLooks(ids) {
 /*
   A different set of looks each day, the same for everyone that day.
   "Days since 1970" changes once per day, so it works as a simple seed.
+  Pass `aesthetics` (e.g. a user's saved quiz result) to pick only from
+  those styles; an empty list means all looks.
 */
-export function dailyLooks(date, count, offset = 0) {
-  const all = mixedLooks()
+export function dailyLooks(date, count, offset = 0, aesthetics = []) {
+  const pool = aesthetics.length
+    ? LOOKS.filter((look) => aesthetics.includes(look.aesthetic))
+    : LOOKS
+  const all = mixedLooks(pool)
   const day = Math.floor(date.getTime() / 86_400_000)
   const start = (day * count + offset) % all.length
   return Array.from({ length: count }, (_, i) => all[(start + i) % all.length])

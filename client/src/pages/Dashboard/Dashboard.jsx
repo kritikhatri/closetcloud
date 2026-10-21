@@ -9,7 +9,8 @@ import EmptyState from '../../components/EmptyState/EmptyState.jsx'
 import Icon from '../../components/Icon/Icon.jsx'
 import LookCard from '../../components/LookCard/LookCard.jsx'
 import PhotoStack from '../../components/PhotoStack/PhotoStack.jsx'
-import { dailyLooks, getLooks, lookImageUrl } from '../../data/inspiration.js'
+import { labelFor } from '../../constants/wardrobe.js'
+import { AESTHETICS, dailyLooks, getLooks, lookImageUrl } from '../../data/inspiration.js'
 import useAsyncData from '../../hooks/useAsyncData.js'
 import useAuth from '../../hooks/useAuth.js'
 import usePageTitle from '../../hooks/usePageTitle.js'
@@ -64,8 +65,11 @@ export default function Dashboard() {
     day: 'numeric',
     month: 'long',
   })
-  const heroLooks = dailyLooks(now, 3)
-  const todaysLooks = dailyLooks(now, 4, 3)
+  // Once the style quiz is saved, the photos lean towards your aesthetics.
+  const style = user.styleAesthetics
+  const heroLooks = dailyLooks(now, 3, 0, style)
+  const todaysLooks = dailyLooks(now, 4, 3, style)
+  const styleLabels = style.map((value) => labelFor(AESTHETICS, value))
 
   return (
     <>
@@ -85,6 +89,17 @@ export default function Dashboard() {
                 ? 'Your closet is ready for its first piece'
                 : `${items.length} ${items.length === 1 ? 'piece' : 'pieces'} in your closet`}
             </p>
+          )}
+          {styleLabels.length > 0 ? (
+            <Link to="/quiz" className={styles.stylePill}>
+              <Icon name="heart" size={16} fill="currentColor" />
+              Your style: {styleLabels.join(' · ')}
+            </Link>
+          ) : (
+            <Link to="/quiz" className={`${styles.stylePill} ${styles.stylePrompt}`}>
+              <Icon name="sparkle" size={16} />
+              Find your aesthetic: take the 1-minute quiz
+            </Link>
           )}
         </div>
         <div className={styles.welcomePhotos}>
@@ -123,7 +138,9 @@ export default function Dashboard() {
       <section aria-labelledby="todays-inspiration" className={styles.section}>
         <div className={styles.sectionHead}>
           <div>
-            <p className="eyebrow">Changes daily</p>
+            <p className="eyebrow">
+              {styleLabels.length > 0 ? `Picked for ${styleLabels.join(' & ')}` : 'Changes daily'}
+            </p>
             <h2 id="todays-inspiration" className={styles.sectionTitle}>
               Today’s inspiration
             </h2>

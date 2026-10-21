@@ -196,6 +196,113 @@
   background: #fff;
 }
 
+.quizChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: #fff;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: background-color var(--duration-fast) ease;
+}
+
+.quizChip:hover {
+  background: var(--color-rose-deep);
+  color: #fff;
+}
+
+/* ---------- Quiz banner above the aesthetic boards ---------- */
+
+.quizBanner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(110deg, var(--color-blush) 0%, var(--color-blush-soft) 70%);
+  color: var(--color-ink);
+  text-decoration: none;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.quizBanner:hover {
+  color: var(--color-ink);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+@media (min-width: 760px) {
+  .quizBanner {
+    grid-template-columns: auto 1fr auto;
+    padding: var(--space-5) var(--space-6);
+  }
+}
+
+.quizBannerIcon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-rose);
+  box-shadow: var(--shadow-sm);
+}
+
+.quizBanner:hover .quizBannerIcon {
+  animation: beat 700ms var(--ease-out);
+}
+
+.quizBannerText {
+  display: grid;
+  gap: 2px;
+  font-size: var(--text-sm);
+}
+
+.quizBannerTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+}
+
+.quizBannerCta {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-rose);
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (min-width: 760px) {
+  .quizBannerCta {
+    grid-column: auto;
+  }
+}
+
+@keyframes beat {
+  30% {
+    transform: scale(1.18);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+}
+
 .heroWall {
   height: 100%;
   min-height: 0;
